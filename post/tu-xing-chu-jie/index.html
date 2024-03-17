@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>图形初阶 | 东隅的博客小站</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://donngyu.github.io/dongyu.github.io//favicon.ico?v=1710685516062">
+<link rel="stylesheet" href="https://donngyu.github.io/dongyu.github.io//styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="
+创建一个基本的图形：
+
+attach(mtcars)
+plot(wt, mpg)
+abline(lm(mpg~wt))  # 添加一条最优拟合曲线
+title(&quot;Regression of MPG on Weight&quot;..." />
+    <meta name="keywords" content="R语言" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://donngyu.github.io/dongyu.github.io/">
+        <img src="https://donngyu.github.io/dongyu.github.io//images/avatar.png?v=1710685516062" class="site-logo">
+        <h1 class="site-title">东隅的博客小站</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/post/dong-yu-de-bo-ke-xiao-zhan" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/archives" class="site-nav">
+            分组
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/tags" class="site-nav">
+            分类
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/post/guan-yu-wo" class="site-nav">
+            关于我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      千里之行，始于足下
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://donngyu.github.io/dongyu.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">图形初阶</h2>
+            <div class="post-date">2024-03-17</div>
+            
+              <div class="feature-container" style="background-image: url('https://donngyu.github.io/dongyu.github.io//post-images/tu-xing-chu-jie.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <blockquote>
+<p>创建一个基本的图形：</p>
+</blockquote>
+<pre><code class="language-R">attach(mtcars)
+plot(wt, mpg)
+abline(lm(mpg~wt))  # 添加一条最优拟合曲线
+title(&quot;Regression of MPG on Weight&quot;)
+detach(mtcars)
+</code></pre>
+<blockquote>
+<p>保存图形：a.通过代码保存；b.通过图形用户界面保存</p>
+</blockquote>
+<pre><code class="language-R">pdf(&quot;mygraph.pdf&quot;)
+	attach(mtcars)
+	plot(wt,mpg)
+	abline(lm(mpg~wt))
+	title(&quot;Regression of MPG on Weight&quot;)
+	detach(mtcars)
+dev.off
+# 除了使用PDF()，还可以使用函数win.metafile(), png(), jpeg(), bmp(), tiff(), xfig(), 和postscript()
+# 创建多个图形并能随时查看每一个
+dev.new()
+statements to create graph 1
+dev.new()
+statements to create graph 2
+etc.
+# 使用函数dev.new(), dev.next(), dev.prev(), dev.set(), dev.off()同时打开多个图形窗口，并选择将哪个输出发送到哪个窗口中
+</code></pre>
+<p>函数*<mark>plot()</mark>*:</p>
+<pre><code class="language-R">plot(x, y = NULL, type = &quot;p&quot;,  xlim = NULL, ylim = NULL,
+     log = &quot;&quot;, main = NULL, sub = NULL, xlab = NULL, ylab = NULL,
+     ann = par(&quot;ann&quot;), axes = TRUE, frame.plot = axes,
+     panel.first = NULL, panel.last = NULL, asp = NA,
+     xgap.axis = NA, ygap.axis = NA,
+     ...)
+</code></pre>
+<blockquote>
+<p>一个简单例子：</p>
+</blockquote>
+<pre><code class="language-R">dose &lt;- c(20, 30, 40, 45, 60)
+drugA &lt;- c(16, 20, 27, 40, 60)
+drugB &lt;- c(15, 18, 25, 31, 40)
+# 需要创建一幅描述剂量与响应关系的图形
+plot(dose, drugA, type=&quot;b&quot;)  # plot(x, y, type=&quot;b&quot;)x是横轴，y是纵轴，type=&quot;b&quot;表示同时绘制点和线
+</code></pre>
+<blockquote>
+<p>修改图形参数定义图形的多个特征（字体，颜色，坐标轴，标签），通过函数*<mark>par()</mark>*指定选项</p>
+</blockquote>
+<p><strong>不加参数执行par()生成一个含有当前参数设置的列表；添加参数no.readonly=TRUE可以生成一个可以修改的当前图形参数列表</strong></p>
+<pre><code class="language-R">opar &lt;- par(no.readonly=TRUE)
+par(lty=2, pch=17)  # &quot;lty=2&quot;表示线条为曲线，&quot;pch=17&quot;表示点符号为三角形
+plot(dose, drugA, type=&quot;b&quot;)
+par(opar)
+# 为指定图形修改图形参数
+plot(dose, drugA, type=&quot;b&quot;, lty=2, pch=17)
+</code></pre>
+<blockquote>
+<h5 id="1符号和线条">1.符号和线条</h5>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pch</td>
+<td>指定绘制点使用的符号</td>
+</tr>
+<tr>
+<td>cex</td>
+<td>指定符号大小；默认大小为1, 1.5表示放大为默认值的1.5倍</td>
+</tr>
+<tr>
+<td>lty</td>
+<td>指定线条类型</td>
+</tr>
+<tr>
+<td>lwd</td>
+<td>指定线条宽度</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-R">plot(dose, drugA, type=&quot;b&quot;, lty=3, lwd=3, pch=15, cex=2)
+</code></pre>
+<blockquote>
+<h5 id="2颜色">2.颜色</h5>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>col</td>
+<td>默认的绘图颜色。某些函数可以接受一个含有颜色值的向量并自动循环使用。例如：如果设定col=c(“red”, “blue”)并需要绘制三条线，第一条为红色，第二条为蓝色，第三条为红色</td>
+</tr>
+<tr>
+<td>col.axis</td>
+<td>坐标轴刻度文字的颜色</td>
+</tr>
+<tr>
+<td>col.lab</td>
+<td>坐标轴标签的颜色</td>
+</tr>
+<tr>
+<td>col.main</td>
+<td>标题颜色</td>
+</tr>
+<tr>
+<td>col.sub</td>
+<td>副标题颜色</td>
+</tr>
+<tr>
+<td>fg</td>
+<td>图形的前景色</td>
+</tr>
+<tr>
+<td>bg</td>
+<td>图形的背景色</td>
+</tr>
+</tbody>
+</table>
+<p>创建连续颜色向量的函数，包括rainbow(), heat.colors(), terrain.colors()、topo.colors()、cm.colors()。</p>
+<pre><code class="language-R">library(RColorBrewer)
+n &lt;- 7
+mycolors &lt;- brewer.pal(n, &quot;Set1&quot;)  # 从set1调色板抽调7种十六进制的颜色并返回一个向量，要得到所有可选调色板的列表，输入brewer.par.info；或者输入display.brewer.all()显示每个调色板的图形
+barplot(rep(1,n), col=mycolors)
+# 通过函数gray()实现多阶灰度色，要通过元素值为0和1之间的向量指定各颜色的灰度
+n &lt;- 10
+mycolors &lt;- rainbow(n)
+pie(rep(1,n), labels=mycolors, col=mycolors)
+mygrays &lt;- gray(0:n/n)  # 生成10阶灰度色
+pie(rep(1,n), labels=mygrays, col=mygrays)
+</code></pre>
+<blockquote>
+<h5 id="3文本属性通过参数指定字号字体和字样">3.文本属性：通过参数指定字号，字体和字样。</h5>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cex</td>
+<td>默认大小的缩放倍数</td>
+</tr>
+<tr>
+<td>cex.axis</td>
+<td>坐标轴刻度文字的缩放倍数</td>
+</tr>
+<tr>
+<td>cex.lab</td>
+<td>坐标轴标签的缩放倍数</td>
+</tr>
+<tr>
+<td>cex.main</td>
+<td>标题缩放倍数</td>
+</tr>
+<tr>
+<td>cex.sub</td>
+<td>副标题倍数</td>
+</tr>
+<tr>
+<td>font</td>
+<td>整数。1=常规，2=粗体，3=斜体，4=粗斜体，5=符号字体</td>
+</tr>
+<tr>
+<td>font.axis</td>
+<td>坐标轴刻度文字的字体样式</td>
+</tr>
+<tr>
+<td>font.lab</td>
+<td>坐标轴刻度标签的字体样式</td>
+</tr>
+<tr>
+<td>font.main</td>
+<td>标题的字体样式</td>
+</tr>
+<tr>
+<td>font.sub</td>
+<td>副标题的字体样式</td>
+</tr>
+<tr>
+<td>ps</td>
+<td>字体镑值。文本最终大小为ps*cex</td>
+</tr>
+<tr>
+<td>family</td>
+<td>绘制文本时使用的字体族。标准取值为serif(衬线)、sans(无衬线)和mono（等宽）</td>
+</tr>
+</tbody>
+</table>
+<p>创建新的衬线字体映射</p>
+<pre><code class="language-R">windowsFonts(
+	A=windowsFont(&quot;Arial Black&quot;), 
+	B=windowsFont(&quot;Bookman Old Style&quot;), 
+	C=windowsFont(&quot;Comic Sans MS&quot;)
+)
+# 创建之后就可以使用A, B, C 作为family的取值
+</code></pre>
+<blockquote>
+<p><strong>4.图形尺寸与边界尺寸</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pin</td>
+<td>以英寸表示的图形尺寸（宽和高）</td>
+</tr>
+<tr>
+<td>mai</td>
+<td>以数值向量表示的边界大小，顺序为“下，左，上，右”，单位为英寸</td>
+</tr>
+<tr>
+<td>mar</td>
+<td>以数值向量表示的边界大小，顺序为“下，左，上，右”，单位为英分。默认值为c（5,4,4,2）+0.1</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-R">par(pin=c(4,3), mai=c(1,0.5,1,0.2))  # 生成一幅4英寸宽，3英寸高，上下边界为1英寸，左边界为0.5英寸，左边界为0.5英寸，右边界为0.2英寸的图形
+# 使用图形参数控制图形外观
+dose &lt;- c(20, 30, 40, 45, 60)
+drugA &lt;- c(16, 20, 27, 40, 60)
+drugB &lt;- c(15, 18, 25, 31, 40)
+opar &lt;- par(no.readonly=TRUE)
+par(pin=c(2, 3))
+par(lwd=2, cex=1.5)
+par(cex.axis=0.75, font.axis=3)
+plot(dose, drugA, type=&quot;b&quot;, pch=19, lty=2, col=&quot;red&quot;)
+plot(dose, drugB, type=&quot;b&quot;, pch23, lty=6, col=&quot;blue&quot;, bg=&quot;green&quot;)
+par(opar)  # 最后还原了初始的图形参数设置
+</code></pre>
+<blockquote>
+<p><strong>5.自定义添加文本，自定义坐标轴和图例</strong></p>
+</blockquote>
+<pre><code class="language-R"># 例子：
+plot(dose, drugA, type=&quot;b&quot;, 
+    col=&quot;red&quot;, lty=2, pch=2, lwd=2, 
+    main=&quot;Clinical Trials for DrugA&quot;, 
+    sub=&quot;This is hypothetical data&quot;,  
+    xlab=&quot;Dosage&quot;, ylab=&quot;Drug Response&quot;, 
+    xlim=c(0, 60), ylim=c(0, 70))
+# 某些高级绘图函数已经包含了默认的标题和标签。可以通过plot（）语句或单独的par（）语句中添加ann=FALSE来移除他们。
+</code></pre>
+<p>标题：使用函数*<mark>title（）</mark>*添加标题和坐标轴标签。</p>
+<pre><code class="language-R">title(main=“My Title”, col.main=“red”, 
+		sub=“My Subtitle”, col.sub=“blue”, 
+		xlab=“My X label”, ylab=“My Y label”, 
+		col.lab=“green”, cex.lab=0.75)
+</code></pre>
+<p>坐标轴：使用函数axis()创建自定义的坐标轴</p>
+<pre><code class="language-R">axis(side, at=, labels=, pos=, lty=, col=, las=, tck=, )
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>side</td>
+<td>一个整数，表示在图形的哪边绘制坐标轴（1=下，2=左，3=上，4=右）</td>
+</tr>
+<tr>
+<td>at</td>
+<td>一个数值型向量，表示需要绘制刻度线的位置</td>
+</tr>
+<tr>
+<td>labels</td>
+<td>一个字符型向量，表示置于刻度线旁边的文字标签（如果NULL，则将直接使用at中的值）</td>
+</tr>
+<tr>
+<td>pos</td>
+<td>坐标轴绘制位置的坐标（即与另一条坐标轴相交位置的值）</td>
+</tr>
+<tr>
+<td>lty</td>
+<td>线条类型</td>
+</tr>
+<tr>
+<td>col</td>
+<td>线条和刻度线的颜色</td>
+</tr>
+<tr>
+<td>las</td>
+<td>标签是否平行于（=0）或垂直于（=2）坐标轴</td>
+</tr>
+<tr>
+<td>tck</td>
+<td>刻度线的长度，以相对于绘图区域大小的分数表示（负值表示在图形内侧，0表示禁用刻度，1表示绘制网格线）；默认值-0.01</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-R"># 例子：
+x &lt;- c(1:10)
+y &lt;- x
+z &lt;- 10/x
+opar &lt;- par(no.readonly=TRUE)
+par(mar=c(5, 4, 4, 8) + 0.1)  # 增加边界大小
+plot(x, y, type=&quot;b&quot;, 
+    pch=21, col=&quot;red&quot;, 
+    yaxt=&quot;n&quot;, lty=3, ann=FALSE)  # 绘制x对y的图形
+lines(x, z, type=&quot;b&quot;, pch=22, col=&quot;blue&quot;, lty=2)  # 添加x对1/x的直线
+# 绘制自己自定义的坐标轴
+axis(2, at=x, labels=x, col=&quot;blue&quot;, las=2)
+axis(4, at=z, labels=round(z, digits=2), 
+     col.axis=&quot;blue&quot;, las=2, cex.axis=0.7, tck=-0.01)
+# 添加标题和文本
+mtext(&quot;y=1/x&quot;, side=4, line=3, cex.lab=1, las=2, col=&quot;blue&quot;)  # mtext()用于在图形边界添加文本
+title(&quot;An Example of Creative Axes&quot;, 
+     xlab=&quot;X value&quot;, 
+     ylab=&quot;Y=X&quot;)
+
+par(opar)
+</code></pre>
+<p>参考线：</p>
+<p>函数*<mark>abline()</mark>*可以为图形添加参考线。</p>
+<pre><code class="language-R">abline(h=yvalues, v=xvalues)
+abline(h=c(1, 5, 7))  # 在y为1,5,7的位置添加了水平实线
+abline(v=seq(1, 10, 2), lty=2, col=&quot;blue&quot;)  # 在x为1,3,5,7,9的位置添加了垂直的蓝色虚线
+</code></pre>
+<p>图例：</p>
+<p>使用函数*<mark>legend（）</mark>*添加图例</p>
+<pre><code class="language-R">legend(location, title, legend, )
+# 例子：
+dose &lt;- c(20, 30, 40, 45, 60)
+drugA &lt;- c(16, 20, 27, 40, 60)
+drugB &lt;- c(15, 18, 25, 31, 40)
+opar &lt;- par(no.readonly=TRUE)
+par(lwd=2, cex=1.5, font.lab=2)  # 增加文本，线条，符号，标签的宽度和大小
+plot(dose, drugA, type=&quot;b&quot;, 
+    pch=15, lty=1, col=&quot;red&quot;, ylim=c(0, 60), 
+    main=&quot;DrugA vs DrugB&quot;, 
+    xlab=&quot;Drug Dosage, ylab=&quot;Drug Response&quot;)
+lines(dose, drugB, type=&quot;b&quot;, 
+		pch=17, lty=2, col=&quot;blue&quot;)
+abline(h=c(30), lwd=1.5, lty=2, col=&quot;gray&quot;)
+# 添加次要刻度线
+library(Hmisc)  # Hmisc包需要先安装
+minor.tick(nx=3, ny=3, tick.ratio=0.5)
+# 添加图例
+legend(&quot;topleft&quot;, inset=0.05, title=&quot;Drug Type&quot;, c(&quot;A&quot;, &quot;B&quot;)
+		lty=c(1, 2), pch=c(15, 17), col=c(&quot;red&quot;, &quot;blue&quot;))
+par(opar)
+</code></pre>
+<p>文本标注：使用函数**<mark>text()</mark><strong>和</strong><mark>mtext()</mark>**将文本添加到图形上。**text()<strong>可以向绘图区域内部添加文本，而</strong>mtext()**则向图形的四个边界之一添加文本。</p>
+<pre><code class="language-R">text(x, y = NULL, labels = seq_along(x$x), adj = NULL,
+     pos = NULL, offset = 0.5, vfont = NULL,
+     cex = 1, col = NULL, font = NULL, ...)  # cex,col,font分别用来调整字号、颜色、字体样式。
+</code></pre>
+<pre><code class="language-R"># 用text()函数标示图形中的点
+# 示例1：
+attach(mtcars)
+plot(wt, mpg, 
+    main=&quot;Mileage vs. Car Weight&quot;, 
+    xlab=&quot;Weight&quot;, ylab=&quot;Mileage&quot;, 
+    pch=18, col=&quot;blue&quot;)
+text(wt, mpg, 
+    row.names(mtcars),
+    cex=0.6, pos=4, col=&quot;red&quot;)
+detach(mtcars)
+# 示例2：
+opar &lt;- par(no.readonly=TRUE)
+par(cex=1.5)
+plot(1:7,1:7, type=&quot;n&quot;)
+text(3,3,&quot;Example of default text&quot;)
+text(4,4,family=&quot;mono&quot;,&quot;Example of mono-spaced text&quot;)
+text(5,5,family=&quot;serif&quot;,&quot;Example of serif text&quot;)
+par(opar)
+</code></pre>
+<p>数学标注：使用类似TeX中的写法为图形创建数学符号和公式，使用help(plotmath)查看</p>
+<p>图形的组合：使用函数**<mark>par()</mark><strong>或</strong><mark>layout()</mark>**组合多幅图形</p>
+<pre><code class="language-R">attach(mtcars)
+opar &lt;- par(no.readonly=TRUE)
+par(mfrow=c(2,2))  # 按行排列，填充2×2矩阵
+plot(wt,mpg,main=&quot;Scatterplot of wt vs. mpg&quot;)
+plot(wt,disp, main=&quot;Scatterplot of wt vs. disp&quot;)
+hist(wt, main=&quot;Histogram of wt&quot;)
+boxplot(wt, main=&quot;Boxplot of wt&quot;)
+par(opar)
+detach(mtcars)
+# 示例2
+attach(mtcars)
+opar &lt;- par(no.readonly=TRUE)
+par(mfrow=c(3,1))  # 3行1列排布
+hist(wt)  # 高级绘图函数中包含了默认标题；可以通过main=&quot;&quot;或ann=FALSE禁用所有标题和标签
+hist(mpg)
+hist(disp)
+par(opar)
+detach(mtcars)
+# 使用函数layout()调用layout(mat)，mat是一个矩阵，指定了组合多个图形的所在位置
+attach(mtcars)
+layout(matrix(c(1,1,2,3), 2, 2, byrow=TRUE))  # 一幅图被置于第1行，另2幅图被置于第2行
+hist(wt)
+hist(mpg)
+hist(disp)
+detach(mtcars)
+# layout(函数中有widths=和heights=两个参数)
+attach(mmtcars)
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE), 
+      widths=c(3, 1), heights=c(1,2))  # 第一行图形高度是第2行图形高度的二分之一。右下角图形宽度是左下角图形宽度的三分之一
+hist(wt)
+hist(mpg)
+hist(disp)
+detach(mtcars)
+# 图形布局的精细控制，使用图形参数fig=；参数new=TRUE会默认新建一幅图形
+opar &lt;- par(no.readonly=TRUE)
+par(fig=c(0, 0.8, 0, 0.8))  # 将散点图设定为占据横向范围0~0.8，纵向范围0~0.8。
+plot(mtcars$wt, mtcars$mpg, 
+    xlab=&quot;Miles Per Gallon&quot;,
+    ylab=&quot;Car Weight&quot;)
+par(fig=c(0, 0.8, 0.55, 1), new=TRUE)  # 箱线图位于上方横向0~0.8，纵向0.55~1
+boxpolt(mtcars$wt, horizontal=TRUE, axes=FALSE)
+par(fig=c(0.65, 1, 0, 0.8), new=TRUE)  # 右侧箱线图占0.65~1，纵向0~0.8
+boxplot(mtcars$wt, axes=FALSE)
+mtext(&quot;Enhanced Scatterplot&quot;, side=3, outer=TRUE, line=-3)
+par(opar)  # 左下角坐标为（0,0），右上角坐标为（1,1）
+
+
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://donngyu.github.io/dongyu.github.io/tag/84GU50qut/" class="tag">
+                    R语言
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://donngyu.github.io/dongyu.github.io/post/di-yi-tian/">
+                  <h3 class="post-title">
+                    基本数据管理
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

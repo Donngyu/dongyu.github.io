@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title> 基本图形 | 东隅的博客小站</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://donngyu.github.io/dongyu.github.io//favicon.ico?v=1710685516062">
+<link rel="stylesheet" href="https://donngyu.github.io/dongyu.github.io//styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1.条形图
+library(vcd)
+counts &lt;- table(Arthritis$Improved)  # 使用table()函数提取单元计数
+counts
+barplot(counts, 
+       main=&quot..." />
+    <meta name="keywords" content="R语言" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://donngyu.github.io/dongyu.github.io/">
+        <img src="https://donngyu.github.io/dongyu.github.io//images/avatar.png?v=1710685516062" class="site-logo">
+        <h1 class="site-title">东隅的博客小站</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/post/dong-yu-de-bo-ke-xiao-zhan" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/archives" class="site-nav">
+            分组
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/tags" class="site-nav">
+            分类
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/post/guan-yu-wo" class="site-nav">
+            关于我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      千里之行，始于足下
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://donngyu.github.io/dongyu.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title"> 基本图形</h2>
+            <div class="post-date">2024-03-16</div>
+            
+              <div class="feature-container" style="background-image: url('https://donngyu.github.io/dongyu.github.io//post-images/ce-shi-wen-zhang.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <p>1.条形图</p>
+<pre><code class="language-R">library(vcd)
+counts &lt;- table(Arthritis$Improved)  # 使用table()函数提取单元计数
+counts
+barplot(counts, 
+       main=&quot;Simple Bar Plot&quot;, 
+       xlab=&quot;Improvement&quot;, ylab=&quot;Frequency&quot;)  # 简单条形图
+barplot(counts, 
+       main=&quot;Horizontal Bar Plot&quot;，
+       xlab=&quot;Frequency&quot;, ylab=&quot;Improvement&quot;, 
+       horiz=TRUE)  # 水平条形图，horiz=TRUE
+# 如果height是一个矩阵而不是向量，则绘图结果为一幅堆砌条形图或分组条形图
+library(vcd)
+counts &lt;- table(Arthritis$Improved, Arthritis$Treatment)
+counts
+barplot(counts, 
+       main=&quot;Stacked Bar Plot&quot;, 
+       xlab=&quot;Treatment&quot;, ylab=&quot;Frequency&quot;, 
+       col=c(&quot;red&quot;, &quot;yellow&quot;, &quot;green&quot;), 
+       legend=rownames(counts))  # 堆砌条形图，legend()函数用于创建图例 
+barplot(counts, 
+       main=&quot;Grouped Bar Plot&quot;, 
+       xlab=&quot;Treatment&quot;, ylab=&quot;Frequency&quot;, 
+       col=c(&quot;red&quot;, &quot;yellow&quot;, &quot;green&quot;), 
+       legend=rownames(counts), beside=TRUE)  # 分组条形图；参数legend.text为图例提供了各图形的标签
+# 均值条形图
+states &lt;- data.frame(state.region, state.x77)
+means &lt;- aggregate(state$Illiteracy, by=list(state.region), FUN=mean)
+means
+means &lt;- means[order(means$x), ]  # 将均值从小到大排序
+means
+barplot(means$x, names.arg=means$Group.1)
+title(&quot;Mean Illiteracy Rate&quot;)
+# 条形图的微调：为条形图搭配标签
+par(mar=c(5,8,4,2))  # 增加y边界的大小
+par(las=2)  # 旋转条形的标签
+counts &lt;- table(Arthritis$Improved)
+barplot(counts, 
+       main=&quot;Treatment Outcome&quot;, 
+       horiz=TRUE, 
+       cex.names=0.8, 
+       names.arg=c(&quot;No Improvement&quot;, &quot;Some Improvement&quot;, 
+                  &quot;Marked Improvement&quot;))  # 修改标签文本
+</code></pre>
+<h5 id="2棘状图">2.棘状图</h5>
+<pre><code class="language-R">library(vcd)
+attach(Arthritis)
+counts &lt;- table(Treatment, Improved)
+spine(counts, main=&quot;Spinogram Example&quot;)  # 绘制棘状图
+detach(Arthritis)
+</code></pre>
+<h5 id="3饼图">3.饼图</h5>
+<pre><code class="language-R">par(mfrow=c(2, 2))  # 将四幅图形组合为一幅
+slices &lt;- c(10, 12.4, 16, 8)
+lbls &lt;- c(&quot;US&quot;, &quot;UK&quot;, &quot;Australia&quot;, &quot;Germany&quot;, &quot;France&quot;)
+pie(slices, labels = lbls, 
+   main=&quot;Simple Pie Chart&quot;)
+
+pct &lt;- round(slices/sum(slices)*100)
+lbls2 &lt;- paste(lbls, &quot; &quot;, pct, &quot;%&quot;, sep=&quot;&quot;)
+pie(slices, labels=lbls2, col=rainbow(length(lbls2)), 
+   main=&quot;Pie Chart with Percentages&quot;)  # 为饼图添加比例数值
+library(plotrix)
+pie3D(slices, labels=lbls,explode=0.1, 
+     main=&quot;3D Pie Chart&quot;)
+mytable &lt;- table(state.region)  # 为表格创建饼图
+lbls3 &lt;- paste(names(mytable), &quot;\n&quot;, mytable, sep=&quot;&quot;)
+pie(mytable, labels = lbls3, 
+   main=&quot;Pie Chart from a Table\n(with sample sizes)&quot;)
+</code></pre>
+<h5 id="4扇形图">4.扇形图</h5>
+<pre><code class="language-R">library(plotrix)
+slices &lt;- c(10, 12.4, 16, 8)
+lbls &lt;- c(&quot;US&quot;, &quot;UK&quot;, &quot;Australia&quot;, &quot;Germany&quot;, &quot;France&quot;)
+fan.plot(slices, labels = lbls, main=&quot;Fan Plot&quot;)  # 各个扇形相互重叠，并对直径进行修改
+</code></pre>
+<h5 id="5直方图">5.直方图</h5>
+<pre><code class="language-R">par(mfrow=c(2,2))
+hist(mtcars$mpg)  # 简单直方图
+hist(mtcars$mpg, 
+    breaks=12, 
+    col=&quot;red&quot;, 
+    xlab=&quot;Miles Per Gallon&quot;, 
+    main=&quot;Colored histogram with 12 bins&quot;)  # 指定组数和颜色
+
+hist(mtcars$mpg, 
+    freq=FALSE, 
+    breaks=12, 
+    col=&quot;red&quot;, 
+    xlab=&quot;Miles Per Gallon&quot;, 
+    main=&quot;Histogram, rug plot, density curve&quot;)
+rug(jitter(mtcars$mpg))
+lines(density(mtcars$mpg), col=&quot;blue&quot;, lwd=2)  # 添加轴须图
+
+x &lt;- mtcars$mpg
+h &lt;- hist(x, 
+         breaks=12, 
+         col=&quot;red&quot;, 
+         xlab=&quot;Mile Per Gallon&quot;, 
+         main=&quot;Histogram with normal curve and box&quot;)
+xfit&lt;-seq(min(x), max(x), length=40)
+yfit&lt;-dnorm(xfit, mean=mean(x), sd=sd(x))
+yfit&lt;-yfit*diff(h$mids[1:2])*length(x)
+lines(xfit, yfit, col=&quot;blue&quot;, lwd=2)  # 添加正态密度曲线和外框
+box()
+</code></pre>
+<h5 id="6核密度图">6.核密度图</h5>
+<pre><code class="language-R">par(mfrow=c(2,1))
+d &lt;- density(mtcars$mpg)
+plot(d)  # 完全使用默认设置绘制最简单的图形
+d &lt;- density(mtcars$mpg)
+plot(d, main=&quot;kernel Density of Miles Per Gallon&quot;)  # 添加一个标题
+polygon(d, col=&quot;red&quot;, border=&quot;blue&quot;)  # 将曲线修改为蓝色，并使用实心红色填充曲线下的区域
+rug(mtcars$mpg, col=&quot;brown&quot;)  # 添加棕色的轴须图
+# sm包中的sm.density.compare()函数可以向图形叠加两幅或更多的图形
+library(sm)
+attach(mtcars)
+cyl.f &lt;- factor(cyl, levels=c(4, 6, 8), 
+               labels=c(&quot;4 cylinder&quot;, &quot;6 cylinder&quot;, 
+                       &quot;8 cylinder&quot;))  # 创建分组因子
+sm.density.compare(mpg, cyl, xlab=&quot;Miles Per Gallon&quot;)  # 绘制密度图
+title(main=&quot;MPG Distribution by Car Cylinders&quot;)
+colfill &lt;- c(2:(1 + length(levels(cul.f))))
+legend(locator(1), levels(cyl.f), fill=colfill)  # 通过鼠标单击添加图例，location(1)表示用鼠标点击想让图例出现的位置来交互式地放置这个图例
+
+detach(mtcars)
+</code></pre>
+<h5 id="7箱线图">7.箱线图</h5>
+<pre><code class="language-R"># 绘制普通箱线图
+boxplot(mog ~ cyl, data=mtcars, 
+       main=&quot;Car Mileage Data&quot;, 
+       xlab=&quot;Number of Cylinders&quot;, 
+       ylab=&quot;Miles Per Gallon&quot;)
+# 绘制带凹槽的箱线图
+boxplot(mpg ~ cyl, data=mtcars, 
+       notch=TRUE, 
+       varwidth=TRUE, 
+       col=&quot;red&quot;, 
+       main=&quot;Car Mileage Data&quot;, 
+       xlab=&quot;Number of Cylinders&quot;, 
+       ylab=&quot;Miles Per Gallon&quot;)  # varwidth=TRUE使箱线图的宽度与各自的样本大小成正比
+# 两个交叉因子的箱线图
+mtcars$cyl.f &lt;- factor(mtcar$cyl, 
+                      levels=c(4, 6, 8), 
+                      labels=c(&quot;4&quot;, &quot;6&quot;, &quot;8&quot;))  # 创建气缸数量的因子
+mtcars$am.f &lt;- factor(mtcars$am, 
+                     levels=c(0, 1), 
+                     labels=c(&quot;auto&quot;, &quot;standard&quot;))  # 创建变速箱类型的因子
+boxplot(mpg ~ am.f *cyl.f, 
+       data=mtcars, 
+       varwidth=TRUE, 
+       col=c(&quot;gold&quot;, &quot;darkgreen&quot;), 
+       main=&quot;MPG Distribution by Auto Type&quot;, 
+        xlab=&quot;Auto Type&quot;, ylab=&quot;Miles Per Gallon&quot;)  # 生成箱线图
+</code></pre>
+<h5 id="8小提琴图">8.小提琴图</h5>
+<pre><code class="language-R"># 使用vioplot()函数绘制小提琴图时先安装包vioplot
+library(vioplot)
+x1 &lt;- mtcars$mpg[mtcars$cyl==4]
+x2 &lt;- mtcars$mpg[mtcars$cyl==6]
+x3 &lt;- mtcars$mpg[mtcars$cyl==8]
+vioplot(x1, x2, x3, 
+       names=c(&quot;4 cyl&quot;, &quot;6 cyl&quot;, &quot;8cyl&quot;), 
+       col=&quot;gold&quot;)
+
+title(&quot;Violin Plots of Miles Per Gallon&quot;, ylab=&quot;Miles Per Gallon&quot;, 
+     xlab=&quot;Number of Cylinders&quot;)
+</code></pre>
+<h5 id="9点图">9.点图</h5>
+<pre><code class="language-R"># 点图提供了在简单水平刻度上绘制大量有标签值的方法
+x &lt;- mtcars[order(mtcars$mpg),]  # 根据每加仑汽油行驶英里数（从最低到最高）对数据框mtcars进行排序，结果保存为数据框x
+x$cyl &lt;- factor(x$cyl)
+x$color[x$cyl==4] &lt;- &quot;red&quot;
+x$color[x$cyl==6] &lt;- &quot;blue&quot;
+x$color[x$cyl==8] &lt;- &quot;darkgreen&quot;
+dotchart(x$mpg, 
+        labels = row.names(x), 
+        cex=.7, 
+        groups = x$cyl, 
+        gcolor = &quot;black&quot;, 
+        color = x$color, 
+        pch=19, 
+        main = &quot;Gas Mileage for Car Models\ngrouped by cylinder&quot;, 
+        xlab = &quot;Miles Per Gallon&quot;)
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://donngyu.github.io/dongyu.github.io/tag/84GU50qut/" class="tag">
+                    R语言
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://donngyu.github.io/dongyu.github.io/post/hello-gridea/">
+                  <h3 class="post-title">
+                    Hello Gridea
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

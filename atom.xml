@@ -1,0 +1,1364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://donngyu.github.io/dongyu.github.io/</id>
+    <title>东隅的博客小站</title>
+    <updated>2024-03-17T14:25:20.496Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://donngyu.github.io/dongyu.github.io/"/>
+    <link rel="self" href="https://donngyu.github.io/dongyu.github.io/atom.xml"/>
+    <subtitle>千里之行，始于足下</subtitle>
+    <logo>https://donngyu.github.io/dongyu.github.io/images/avatar.png</logo>
+    <icon>https://donngyu.github.io/dongyu.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2024, 东隅的博客小站</rights>
+    <entry>
+        <title type="html"><![CDATA[高级数据管理]]></title>
+        <id>https://donngyu.github.io/dongyu.github.io/post/gao-ji-shu-ju-guan-li/</id>
+        <link href="https://donngyu.github.io/dongyu.github.io/post/gao-ji-shu-ju-guan-li/">
+        </link>
+        <updated>2024-03-17T14:13:23.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://donngyu.github.io/dongyu.github.io//post-images/1710684834152.jpg" alt="" loading="lazy"></figure>
+<h5 id="11数学函数">1.1数学函数</h5>
+<p>对数据做变换，对结果进行格式化</p>
+<h5 id="12统计函数">1.2统计函数</h5>
+<table>
+<thead>
+<tr>
+<th>统计</th>
+<th>函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mean()</td>
+<td>median()</td>
+</tr>
+<tr>
+<td>sd()</td>
+<td>var()</td>
+</tr>
+<tr>
+<td>mad()</td>
+<td>quantile()</td>
+</tr>
+<tr>
+<td>range()</td>
+<td>sum()</td>
+</tr>
+<tr>
+<td>diff()</td>
+<td>min()</td>
+</tr>
+<tr>
+<td>max()</td>
+<td>scale()</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-R"> x &lt;- c(1, 2, 3, 4, 5, 6, 7, 8)
+mean(x)
+sd(x)
+scale()  # 将变量标准化为均值为M，标准差为sd的变量
+</code></pre>
+<h5 id="13概率函数">1.3概率函数</h5>
+<p>d=密度函数；p=分布函数；q=分位数函数；r=生成随机数</p>
+<pre><code class="language-R">x &lt;- pretty(c(-3, 3), 30)
+y &lt;- dnorm(x)
+plot(x, y, 
+    type=&quot;1&quot;)
+# 设定随机数种子
+set.seed(1234)  # 通过手动设定种子，可以重现随机数
+runif(5)
+# 生成多元正态数据，使用MASS包中的mvrnorm()
+mvrnorm(n, mean, sigma)
+# 例子
+library(MASS)
+options(digits=3)
+set.seed(1234)
+# 设定随机数种子
+mean &lt;- c(230.7, 146.7, 3.6)
+sigmma &lt;- matrix(c(15360.8, 6721.2, -47.1, 
+                  6721.2, 4700.9, -16.5, 
+                  -47.1, -16.5, 0.3), nrow=3, ncol=3)
+# 指定均值向量，协方差阵
+mydata &lt;- mvrnorm(500, mean, sigma)  # 生成500个伪随机观测
+mydata &lt;- as.data.frame(mydata)
+names(mydata) &lt;- c(&quot;y&quot;, &quot;x1&quot;, &quot;x2&quot;)
+dim(mydata)
+head(mydata, n=10)
+</code></pre>
+<h5 id="14字符处理函数">1.4字符处理函数</h5>
+<p>正则表达式</p>
+<h5 id="15其他实用函数">1.5其他实用函数</h5>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>length()</td>
+<td>对象x的长度</td>
+</tr>
+<tr>
+<td>seq(from, to, by)</td>
+<td>生成一个序列</td>
+</tr>
+<tr>
+<td>rep(x, n)</td>
+<td>将x重复n次</td>
+</tr>
+<tr>
+<td>cut(x, n)</td>
+<td>将连续型变量x分割为有着n个水平的因子</td>
+</tr>
+<tr>
+<td>pretty(x, n)</td>
+<td>创建美观的分割点。选取n+1个等间距的取整值</td>
+</tr>
+<tr>
+<td>cat(…，file = “myfile”, append = FALSE)</td>
+<td>连接…中的对象，将其输出到屏幕上或文件中</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-R"># 将一个函数应用到矩阵的所有行（列）
+mydata &lt;- matrix(rnorm(30), nrow=6)
+apply(mydata, 1, mean)
+apply(mydata, 2, mean)  # 计算每列的均值
+apply(mydata, 1, mean, trim=0.2)  # 计算每行的截尾均值：基于中间60%的数据，最高和最低20%的值被忽略
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://donngyu.github.io/dongyu.github.io//post-images/1710684852963.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://donngyu.github.io/dongyu.github.io//post-images/1710684866136.jpg" alt="" loading="lazy"></figure>
+<pre><code class="language-R"># 接上
+z &lt;- scale(roster[,2:4])  # 进行标准化，默认标准正态分布
+score &lt;- apply(z, 1, mean)
+roster &lt;- cbind(roster, score)  # 计算均值mean后将其添加到花名册中
+y &lt;- quantile(roster$score, c(.8, .6, .4, .2))  # 给出综合得分百分数
+y
+# 使用函数strsplit()以空格为界把学生姓名拆分为姓氏和名字
+name &lt;- strsplit((roster$Student), &quot; &quot;)
+# 使用函数sapply()提取列表中每个成分的第一个元素，放入一个存储名字的向量Firstname，并提取第二个元素，放入存储姓氏的向量Lastname。&quot;[&quot;是一个可以提取某个对象的一部分的函数
+Firstname &lt;- sapply(name, &quot;[&quot;, 1)
+Lastname &lt;- sapply(name, &quot;[&quot;, 2)
+roster &lt;- cbind(Firstname, Lastname, roster[,-1])
+roster[order(Lastname, Firstname), ]  # 依据姓氏和名字进行排序
+
+</code></pre>
+<h4 id="54-控制流">5.4 控制流</h4>
+<pre><code>##### 	1.重复和循环
+</code></pre>
+<p>循环结构重复地执行一个或一系列语句，直到某个条件不为真；包括for，while结构。</p>
+<pre><code class="language-R"># for循环
+for(var in seq) statement
+for(i in 1:10) print(&quot;Hello&quot;)  # 单词Hello被循环输出了10次
+# while结构：while循环重复地执行一个语句，直到条件不为真为止
+i &lt;- 10
+while(i &gt; 0){print(&quot;Hello&quot;);i &lt;- i - 1}
+</code></pre>
+<h5 id="2条件执行">2.条件执行</h5>
+<pre><code class="language-R"># if-else结构
+if(is.character(grade)) grade &lt;- as.factor(grade)
+if(!is.factor(grade))grade &lt;- as.factor(grade) else print(&quot;Grade already&quot;)
+# ifelse结构
+ifelse(score &gt; 0.5, print(&quot;Passed&quot;), print(&quot;Failed&quot;))  # cond为TRUE则执行第一个语句；cond为FALSE则执行第二个语句
+outcome &lt;- ifelse(score &gt; 0.5, &quot;Passed&quot;, &quot;Failed&quot;)
+# swith结构
+feelings &lt;- c(&quot;sad&quot;, &quot;afraid&quot;)
+for(i in feelings)
+    print(
+    swith(i,
+         happy = &quot;I am glad you are happy&quot;, 
+         afraid = &quot;There is nothing to fear&quot;, 
+         sad = &quot;Cheer up&quot;,
+         angry = &quot;Calm down now&quot;
+         )
+    )
+</code></pre>
+<h6 id="13用户自编函数">1.3用户自编函数</h6>
+<pre><code class="language-R">mystats &lt;- function(x, parametric=TRUE, print=FALSE){
+    if(parametric){
+        center &lt;- mean(x); spread &lt;- sd(x)
+    }else{
+        center &lt;- median(x); spread &lt;- mad(x)
+    }
+    if(print &amp; parametric){
+        cat(&quot;Mean=&quot;, center, &quot;\n&quot;, &quot;SD=&quot;, spread, &quot;\n&quot;)
+    }else if(print &amp; !parametric){
+        cat(&quot;Median=&quot;, center, &quot;\n&quot;, &quot;MAD=&quot;, spread, &quot;\n&quot;)
+    }
+    result &lt;- list(center=center, spread=spread)
+    return(result)
+}
+# 先生成一些数据,服从正态分布，大小为500的随机样本
+set.seed(1234)
+x &lt;- rnorm(500)
+y &lt;- mystats(x)
+# 执行语句
+y &lt;- mystats(x, parametric=FALSE, print=TRUE)
+# 使用swith的用户自编函数
+mydate &lt;- function(type=&quot;long&quot;){
+    swith(type, 
+         long = format(Sys.time(), &quot;%A %B %d %Y&quot;), 
+         short = format(Sys.time(),&quot;%m-%d-%y&quot;), 
+         cat(type, &quot;is not a recognized type\n&quot;)
+         )  # 函数cat()仅会在输入的日期格式类型不匹配“long”或“short”时执行
+}
+</code></pre>
+<h5 id="14整合与重构">1.4整合与重构</h5>
+<pre><code class="language-R"># 转置（反转行和列）；使用函数t()可以对矩阵或数据框进行转置
+cars &lt;- mtcars[1:5, 1:4]
+cars
+t(cars)
+# 整合数据
+options(digits=3)
+attach(mtcars)
+aggdata &lt;- aggregate(mtcars, by=list(cy1,gear), FUN=mean, na.rm=TRUE)
+aggdata
+# reshape2包
+# 融合
+library(reshape2)
+md &lt;- melt(mydata, id=c(&quot;ID&quot;, &quot;Time&quot;))
+# 重铸
+newdata &lt;- dcast(md, formula, fun.aggregate)
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[创建数据集]]></title>
+        <id>https://donngyu.github.io/dongyu.github.io/post/chuang-jian-shu-ju-ji/</id>
+        <link href="https://donngyu.github.io/dongyu.github.io/post/chuang-jian-shu-ju-ji/">
+        </link>
+        <updated>2024-03-17T05:55:18.000Z</updated>
+        <content type="html"><![CDATA[<h6 id="数据结构向量矩阵数组数据框">数据结构：向量；矩阵；数组；数据框</h6>
+<blockquote>
+<p>在R中，对象（object）是指可以赋值给变量的任何事物。数据框（data frame）是R中用于存储数据的一种结构；<mark>列表示变量，行表示观测</mark>。<strong>因子</strong>（factor）是名义型变量或有序型变量。</p>
+</blockquote>
+<h5 id="1向量">1.向量</h5>
+<pre><code class="language-R">a &lt;- c(1,2,5,3,6,-2,4)
+b &lt;- c(&quot;one&quot;,&quot;two&quot;,&quot;three&quot;)
+c &lt;- c(TRUE,TRUE,TRUE,FALSE,TRUE，FALSE)
+#注意：单个向量中的数据必须拥有相同的类型或模式
+</code></pre>
+<p>元素索引：</p>
+<blockquote>
+<p>在方括号给定元素所处位置的数值，可以访问向量中的元素。例如：</p>
+</blockquote>
+<pre><code class="language-R">a &lt;- c(&quot;k&quot;,&quot;j&quot;,&quot;h&quot;,&quot;a&quot;,&quot;c&quot;,&quot;m&quot;)
+a[3]
+a[c(1,3,5)]
+a[2:6]#a &lt;- c(2:6)等价于a &lt;-c(2,3,4,5,6)
+</code></pre>
+<h5 id="2矩阵">2.矩阵</h5>
+<blockquote>
+<p><mark>矩阵是一个二维数组</mark>，通过==<em>matrix（）</em>==创建矩阵</p>
+</blockquote>
+<pre><code class="language-r">matrix(data = NA, nrow = 1, ncol = 1, byrow = FALSE,
+       dimnames = NULL)
+例如：
+y &lt;- matrix(1:20,nrow=5,ncol=4)
+cells &lt;-c(1,26,24,68)
+rnames &lt;- c(&quot;R1&quot;,&quot;R2&quot;)
+cnames &lt;- c(&quot;c1&quot;,&quot;c2&quot;)
+mymatrix &lt;-matrix(cells,nrow=2,ncol=2,byrow=TRUE,dimnames=list(rnames,cnames))
+mymatrix
+mymmatrix &lt;- matrix(cells,nrow=2,ncol=2,byrow=FASLE,dimnames=list(rnames,cnames))
+mymatrix
+#矩阵下标的使用,默认情况，矩阵按列填充
+x &lt;- matrix(1:10,nrow=2)
+</code></pre>
+<h5 id="3数组">3.数组</h5>
+<blockquote>
+<p>维度可以大于2，函数==<em>array()</em>==</p>
+</blockquote>
+<pre><code class="language-r">array(data = NA, dim = length(data), dimnames = NULL)
+as.array(x, ...)
+is.array(x)
+例如：#数组中是数据也只能拥有一种模式
+dim1 &lt;-c(&quot;A1&quot;,&quot;A2&quot;)
+dim2 &lt;-c(&quot;B1&quot;,&quot;B2&quot;,&quot;B3&quot;)
+dim3 &lt;-c(&quot;C1&quot;,&quot;C2&quot;,&quot;C3&quot;,&quot;C4&quot;)
+z &lt;- array(1:24,c(2,3,4),dimnames=list(dim1,dim2,dim3))
+z
+</code></pre>
+<h5 id="4数据框">4.数据框</h5>
+<blockquote>
+<p>数据框可以包含多种不同的数据类型</p>
+</blockquote>
+<pre><code class="language-r">data.frame(..., row.names = NULL, check.rows = FALSE,
+           check.names = TRUE, fix.empty.names = TRUE,
+           stringsAsFactors = FALSE)
+#创建一个数据框
+patientID &lt;-c(1,2,3,4)
+age &lt;-c(25,34,28,52)
+diabetes &lt;-c(&quot;Type1&quot;，&quot;Type2&quot;,&quot;Type1&quot;,&quot;Type1&quot;)
+status &lt;-c(&quot;Poor&quot;,&quot;Improved&quot;,&quot;Excellent&quot;,&quot;Poor&quot;)
+patientdata &lt;-data.frame(patientID,age,diabetes,status)
+patientdata
+#每一列数据模式必须唯一
+#选取数据框中的元素可以使用下标，也可以直接指定列名
+#例如：patientdata[1:2];patientdata[&quot;diabetes&quot;,&quot;status&quot;];patientdata$age
+#&quot;$&quot;可以用来选取某个特定变量
+</code></pre>
+<p>使用函数<mark>attach()<mark>和</mark>detach()</mark>;或者使用函数==with()==简化代码；例如：</p>
+<pre><code class="language-R">summary(mtcars$mpg)
+plot(mtcars$mpg,mtcars$disp)
+plot(mtcars$mpg,mtcars$wt)
+#上述代码也可以写成：
+attach(mtcars)
+	summary(mpg)
+	plot(mpg,disp)
+	plot(mpg,wt)
+detach(mtcars)#将数据框从搜索路径中移除
+#！！注意：当名称相同的对象不止一个时，这种方法就比较局限了。这时可以使用with()
+with(mtcars,{
+    print(summary(mpg))
+    plot(mpg,disp)
+    plot(mpg,wt)
+})#赋值仅仅在with()中生效，需要创建with()结构以外的对象，要使用特殊赋值符&lt;&lt;-替代标准赋值符&lt;-,它能将对象保存到全局环境中
+with(mtcars,{
+    nokeepstats &lt;- summary(mpg)
+    keepstats &lt;- summary(mpg)
+})
+nokeepstats#报错
+keepstats
+</code></pre>
+<h5 id="5因子">5.因子</h5>
+<p><strong>名义型变量</strong>和<strong>有序型变量</strong>都是R中的因子，函数*<mark>factor()</mark>*能以一个整数向量的形式存储类别值。</p>
+<pre><code class="language-R">factor(x = character(), levels, labels = levels,
+       exclude = NA, ordered = is.ordered(x), nmax = NA)
+
+ordered(x = character(), ...)
+
+is.factor(x)
+is.ordered(x)
+
+as.factor(x)
+as.ordered(x)
+
+addNA(x, ifany = FALSE)
+
+.valid.factor(object)
+</code></pre>
+<p>例如：</p>
+<pre><code class="language-R">diabetes &lt;- c(&quot;Type1&quot;,&quot;Type2&quot;,&quot;Type1&quot;,&quot;Type1&quot;)
+diabetes &lt;- factor(diabetes)#将此向量存储为（1,2,1,1）
+#要表示有序型变量，使用函数factor()指定参数orderd=TRUE
+status &lt;- c(&quot;Poor&quot;,&quot;Improved&quot;,&quot;Excellent&quot;,&quot;Poor&quot;)
+status &lt;- factor(status,orderd=TRUE)#默认按照字母排序顺序
+#可以通过指定levels选项来覆盖默认排序
+status &lt;- factor(status,orderd=TRUE
+                levels=c(&quot;Poor&quot;,&quot;Improved&quot;,&quot;Excellent&quot;))
+sex &lt;- factor(sex,levels=c(1,2),labels=c(&quot;Male&quot;,&quot;Females&quot;))
+#因子的使用：
+patientID &lt;- c(1,2,3,4)
+ages &lt;- c(25,34,28,52)
+diabetes &lt;- c(&quot;Type1&quot;,&quot;Type2&quot;,&quot;Type1&quot;,&quot;Type1&quot;)
+status &lt;- c(&quot;Poor&quot;,&quot;Improved&quot;,&quot;Excellent&quot;,&quot;Poor&quot;)
+diabetes &lt;- factor(diabetes)
+status &lt;- factor(status,order=TRUE)
+patientdata &lt;- data.frame(patientID,age,diabetes,status)
+str(patientdata)#显示对象的结构
+summary(patientdata)
+</code></pre>
+<h5 id="6列表">6.列表</h5>
+<p>列表允许整合若干（可能无关的）对象到单个对象名下，使用函数*<mark>list()</mark>*创建列表。</p>
+<pre><code class="language-R">例如：
+g &lt;- &quot;My First List&quot;
+h &lt;- c(25,26,18,39)
+j &lt;- matrix(1:10,nrow=5)
+k &lt;- c(&quot;one&quot;,&quot;two&quot;,&quot;three&quot;)
+mylist &lt;- list(title=g,ages=h,j,k)
+mylist
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[数据的输入]]></title>
+        <id>https://donngyu.github.io/dongyu.github.io/post/shu-ju-de-shu-ru/</id>
+        <link href="https://donngyu.github.io/dongyu.github.io/post/shu-ju-de-shu-ru/">
+        </link>
+        <updated>2024-03-17T05:52:20.000Z</updated>
+        <content type="html"><![CDATA[<h5 id="1使用键盘输入数据">1.使用键盘输入数据</h5>
+<p>两种方法：用<strong>R内置的文本编辑器</strong>或<strong>直接在代码中嵌入数据</strong></p>
+<p>（1）文本编辑器：使用函数*<mark>edit()</mark>*</p>
+<blockquote>
+<p>a.创建一个空数据框</p>
+</blockquote>
+<blockquote>
+<p>b.针对数据对象调用文本编辑器</p>
+</blockquote>
+<pre><code class="language-R">mydata &lt;- data.frame(age=numeric(0),
+                    gender=character(0), weight=numeric(0))
+mydata &lt;- edit(mydata)
+# age=numeric(0)的赋值语句将创建一个指定模式但不含实际数据的变量，函数edit()是在对象副本上操作，需要将修改赋值到一个目标上
+</code></pre>
+<p>（2）直接在代码中嵌入数据集</p>
+<pre><code class="language-R">mydatatxt &lt;- &quot;
+age gender weight
+25 m 166
+30 f 115
+18 f 120
+&quot;
+mydata &lt;- read.table(header=TRUE, text=mydatatxt)  # read.table()用来处理字符串并返回数据框
+</code></pre>
+<p>函数*<mark>read.table()</mark>*导入数据：</p>
+<pre><code class="language-R"># 例如：
+mydataframe &lt;- read.table(file, options)  # options是控制如何处理数据的选项
+# 用法：
+read.table(file, header = FALSE, sep = &quot;&quot;, quote = &quot;\&quot;'&quot;,
+           dec = &quot;.&quot;, numerals = c(&quot;allow.loss&quot;, &quot;warn.loss&quot;, &quot;no.loss&quot;),
+           row.names, col.names, as.is = !stringsAsFactors, tryLogical = TRUE,
+           na.strings = &quot;NA&quot;, colClasses = NA, nrows = -1,
+           skip = 0, check.names = TRUE, fill = !blank.lines.skip,
+           strip.white = FALSE, blank.lines.skip = TRUE,
+           comment.char = &quot;#&quot;,
+           allowEscapes = FALSE, flush = FALSE,
+           stringsAsFactors = FALSE,
+           fileEncoding = &quot;&quot;, encoding = &quot;unknown&quot;, text, skipNul = FALSE)
+</code></pre>
+<p>读取csv格式的文件：</p>
+<pre><code class="language-R">grades &lt;- read.table(&quot;studentgrades.csv&quot;, header=TRUE, 
+                    row.names=&quot;StudentID&quot;, sep=',')
+grades
+str(grades)  # read.table()默认会将字符变量转化为因子，加上选项stringASFactors=FALSE对所有的字符变量去掉这个行为，还可以用colClasses选项对每一列都指定一个类
+# 例如：
+grades &lt;- read.table(&quot;studentgrades.csv&quot;, header=TRUE, 
+                    row.names=&quot;StudentID&quot;, sep=&quot;,&quot;, 
+                    colClasses=c(&quot;character&quot;, &quot;character&quot;, &quot;character&quot;, 
+                                &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;))
+grades
+str(grades)
+</code></pre>
+<h5 id="2数据集的标注">2.数据集的标注</h5>
+<p>（1）变量标签</p>
+<blockquote>
+<p>R处理变量标签能力有限，可以将变量标签作为变量名，通过位置下标进行访问，例如：</p>
+<pre><code class="language-R">names(patientdata)[2] &lt;- &quot;Age at hospitalization (in years)&quot; 
+# 将age重命名为“Age at hospitalization （in years）”
+</code></pre>
+</blockquote>
+<p>（2）值标签</p>
+<p>假设你有一个名为gender的变量，其中1表示男性，2表示女性。代码如下：</p>
+<pre><code class="language-R">patientdata$gender &lt;- factor(patientdata$gender, 
+                            levels=c(1, 2), 
+                            labels=c(&quot;male&quot;, &quot;female&quot;))
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[图形初阶]]></title>
+        <id>https://donngyu.github.io/dongyu.github.io/post/tu-xing-chu-jie/</id>
+        <link href="https://donngyu.github.io/dongyu.github.io/post/tu-xing-chu-jie/">
+        </link>
+        <updated>2024-03-17T05:51:19.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>创建一个基本的图形：</p>
+</blockquote>
+<pre><code class="language-R">attach(mtcars)
+plot(wt, mpg)
+abline(lm(mpg~wt))  # 添加一条最优拟合曲线
+title(&quot;Regression of MPG on Weight&quot;)
+detach(mtcars)
+</code></pre>
+<blockquote>
+<p>保存图形：a.通过代码保存；b.通过图形用户界面保存</p>
+</blockquote>
+<pre><code class="language-R">pdf(&quot;mygraph.pdf&quot;)
+	attach(mtcars)
+	plot(wt,mpg)
+	abline(lm(mpg~wt))
+	title(&quot;Regression of MPG on Weight&quot;)
+	detach(mtcars)
+dev.off
+# 除了使用PDF()，还可以使用函数win.metafile(), png(), jpeg(), bmp(), tiff(), xfig(), 和postscript()
+# 创建多个图形并能随时查看每一个
+dev.new()
+statements to create graph 1
+dev.new()
+statements to create graph 2
+etc.
+# 使用函数dev.new(), dev.next(), dev.prev(), dev.set(), dev.off()同时打开多个图形窗口，并选择将哪个输出发送到哪个窗口中
+</code></pre>
+<p>函数*<mark>plot()</mark>*:</p>
+<pre><code class="language-R">plot(x, y = NULL, type = &quot;p&quot;,  xlim = NULL, ylim = NULL,
+     log = &quot;&quot;, main = NULL, sub = NULL, xlab = NULL, ylab = NULL,
+     ann = par(&quot;ann&quot;), axes = TRUE, frame.plot = axes,
+     panel.first = NULL, panel.last = NULL, asp = NA,
+     xgap.axis = NA, ygap.axis = NA,
+     ...)
+</code></pre>
+<blockquote>
+<p>一个简单例子：</p>
+</blockquote>
+<pre><code class="language-R">dose &lt;- c(20, 30, 40, 45, 60)
+drugA &lt;- c(16, 20, 27, 40, 60)
+drugB &lt;- c(15, 18, 25, 31, 40)
+# 需要创建一幅描述剂量与响应关系的图形
+plot(dose, drugA, type=&quot;b&quot;)  # plot(x, y, type=&quot;b&quot;)x是横轴，y是纵轴，type=&quot;b&quot;表示同时绘制点和线
+</code></pre>
+<blockquote>
+<p>修改图形参数定义图形的多个特征（字体，颜色，坐标轴，标签），通过函数*<mark>par()</mark>*指定选项</p>
+</blockquote>
+<p><strong>不加参数执行par()生成一个含有当前参数设置的列表；添加参数no.readonly=TRUE可以生成一个可以修改的当前图形参数列表</strong></p>
+<pre><code class="language-R">opar &lt;- par(no.readonly=TRUE)
+par(lty=2, pch=17)  # &quot;lty=2&quot;表示线条为曲线，&quot;pch=17&quot;表示点符号为三角形
+plot(dose, drugA, type=&quot;b&quot;)
+par(opar)
+# 为指定图形修改图形参数
+plot(dose, drugA, type=&quot;b&quot;, lty=2, pch=17)
+</code></pre>
+<blockquote>
+<h5 id="1符号和线条">1.符号和线条</h5>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pch</td>
+<td>指定绘制点使用的符号</td>
+</tr>
+<tr>
+<td>cex</td>
+<td>指定符号大小；默认大小为1, 1.5表示放大为默认值的1.5倍</td>
+</tr>
+<tr>
+<td>lty</td>
+<td>指定线条类型</td>
+</tr>
+<tr>
+<td>lwd</td>
+<td>指定线条宽度</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-R">plot(dose, drugA, type=&quot;b&quot;, lty=3, lwd=3, pch=15, cex=2)
+</code></pre>
+<blockquote>
+<h5 id="2颜色">2.颜色</h5>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>col</td>
+<td>默认的绘图颜色。某些函数可以接受一个含有颜色值的向量并自动循环使用。例如：如果设定col=c(“red”, “blue”)并需要绘制三条线，第一条为红色，第二条为蓝色，第三条为红色</td>
+</tr>
+<tr>
+<td>col.axis</td>
+<td>坐标轴刻度文字的颜色</td>
+</tr>
+<tr>
+<td>col.lab</td>
+<td>坐标轴标签的颜色</td>
+</tr>
+<tr>
+<td>col.main</td>
+<td>标题颜色</td>
+</tr>
+<tr>
+<td>col.sub</td>
+<td>副标题颜色</td>
+</tr>
+<tr>
+<td>fg</td>
+<td>图形的前景色</td>
+</tr>
+<tr>
+<td>bg</td>
+<td>图形的背景色</td>
+</tr>
+</tbody>
+</table>
+<p>创建连续颜色向量的函数，包括rainbow(), heat.colors(), terrain.colors()、topo.colors()、cm.colors()。</p>
+<pre><code class="language-R">library(RColorBrewer)
+n &lt;- 7
+mycolors &lt;- brewer.pal(n, &quot;Set1&quot;)  # 从set1调色板抽调7种十六进制的颜色并返回一个向量，要得到所有可选调色板的列表，输入brewer.par.info；或者输入display.brewer.all()显示每个调色板的图形
+barplot(rep(1,n), col=mycolors)
+# 通过函数gray()实现多阶灰度色，要通过元素值为0和1之间的向量指定各颜色的灰度
+n &lt;- 10
+mycolors &lt;- rainbow(n)
+pie(rep(1,n), labels=mycolors, col=mycolors)
+mygrays &lt;- gray(0:n/n)  # 生成10阶灰度色
+pie(rep(1,n), labels=mygrays, col=mygrays)
+</code></pre>
+<blockquote>
+<h5 id="3文本属性通过参数指定字号字体和字样">3.文本属性：通过参数指定字号，字体和字样。</h5>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cex</td>
+<td>默认大小的缩放倍数</td>
+</tr>
+<tr>
+<td>cex.axis</td>
+<td>坐标轴刻度文字的缩放倍数</td>
+</tr>
+<tr>
+<td>cex.lab</td>
+<td>坐标轴标签的缩放倍数</td>
+</tr>
+<tr>
+<td>cex.main</td>
+<td>标题缩放倍数</td>
+</tr>
+<tr>
+<td>cex.sub</td>
+<td>副标题倍数</td>
+</tr>
+<tr>
+<td>font</td>
+<td>整数。1=常规，2=粗体，3=斜体，4=粗斜体，5=符号字体</td>
+</tr>
+<tr>
+<td>font.axis</td>
+<td>坐标轴刻度文字的字体样式</td>
+</tr>
+<tr>
+<td>font.lab</td>
+<td>坐标轴刻度标签的字体样式</td>
+</tr>
+<tr>
+<td>font.main</td>
+<td>标题的字体样式</td>
+</tr>
+<tr>
+<td>font.sub</td>
+<td>副标题的字体样式</td>
+</tr>
+<tr>
+<td>ps</td>
+<td>字体镑值。文本最终大小为ps*cex</td>
+</tr>
+<tr>
+<td>family</td>
+<td>绘制文本时使用的字体族。标准取值为serif(衬线)、sans(无衬线)和mono（等宽）</td>
+</tr>
+</tbody>
+</table>
+<p>创建新的衬线字体映射</p>
+<pre><code class="language-R">windowsFonts(
+	A=windowsFont(&quot;Arial Black&quot;), 
+	B=windowsFont(&quot;Bookman Old Style&quot;), 
+	C=windowsFont(&quot;Comic Sans MS&quot;)
+)
+# 创建之后就可以使用A, B, C 作为family的取值
+</code></pre>
+<blockquote>
+<p><strong>4.图形尺寸与边界尺寸</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pin</td>
+<td>以英寸表示的图形尺寸（宽和高）</td>
+</tr>
+<tr>
+<td>mai</td>
+<td>以数值向量表示的边界大小，顺序为“下，左，上，右”，单位为英寸</td>
+</tr>
+<tr>
+<td>mar</td>
+<td>以数值向量表示的边界大小，顺序为“下，左，上，右”，单位为英分。默认值为c（5,4,4,2）+0.1</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-R">par(pin=c(4,3), mai=c(1,0.5,1,0.2))  # 生成一幅4英寸宽，3英寸高，上下边界为1英寸，左边界为0.5英寸，左边界为0.5英寸，右边界为0.2英寸的图形
+# 使用图形参数控制图形外观
+dose &lt;- c(20, 30, 40, 45, 60)
+drugA &lt;- c(16, 20, 27, 40, 60)
+drugB &lt;- c(15, 18, 25, 31, 40)
+opar &lt;- par(no.readonly=TRUE)
+par(pin=c(2, 3))
+par(lwd=2, cex=1.5)
+par(cex.axis=0.75, font.axis=3)
+plot(dose, drugA, type=&quot;b&quot;, pch=19, lty=2, col=&quot;red&quot;)
+plot(dose, drugB, type=&quot;b&quot;, pch23, lty=6, col=&quot;blue&quot;, bg=&quot;green&quot;)
+par(opar)  # 最后还原了初始的图形参数设置
+</code></pre>
+<blockquote>
+<p><strong>5.自定义添加文本，自定义坐标轴和图例</strong></p>
+</blockquote>
+<pre><code class="language-R"># 例子：
+plot(dose, drugA, type=&quot;b&quot;, 
+    col=&quot;red&quot;, lty=2, pch=2, lwd=2, 
+    main=&quot;Clinical Trials for DrugA&quot;, 
+    sub=&quot;This is hypothetical data&quot;,  
+    xlab=&quot;Dosage&quot;, ylab=&quot;Drug Response&quot;, 
+    xlim=c(0, 60), ylim=c(0, 70))
+# 某些高级绘图函数已经包含了默认的标题和标签。可以通过plot（）语句或单独的par（）语句中添加ann=FALSE来移除他们。
+</code></pre>
+<p>标题：使用函数*<mark>title（）</mark>*添加标题和坐标轴标签。</p>
+<pre><code class="language-R">title(main=“My Title”, col.main=“red”, 
+		sub=“My Subtitle”, col.sub=“blue”, 
+		xlab=“My X label”, ylab=“My Y label”, 
+		col.lab=“green”, cex.lab=0.75)
+</code></pre>
+<p>坐标轴：使用函数axis()创建自定义的坐标轴</p>
+<pre><code class="language-R">axis(side, at=, labels=, pos=, lty=, col=, las=, tck=, )
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>side</td>
+<td>一个整数，表示在图形的哪边绘制坐标轴（1=下，2=左，3=上，4=右）</td>
+</tr>
+<tr>
+<td>at</td>
+<td>一个数值型向量，表示需要绘制刻度线的位置</td>
+</tr>
+<tr>
+<td>labels</td>
+<td>一个字符型向量，表示置于刻度线旁边的文字标签（如果NULL，则将直接使用at中的值）</td>
+</tr>
+<tr>
+<td>pos</td>
+<td>坐标轴绘制位置的坐标（即与另一条坐标轴相交位置的值）</td>
+</tr>
+<tr>
+<td>lty</td>
+<td>线条类型</td>
+</tr>
+<tr>
+<td>col</td>
+<td>线条和刻度线的颜色</td>
+</tr>
+<tr>
+<td>las</td>
+<td>标签是否平行于（=0）或垂直于（=2）坐标轴</td>
+</tr>
+<tr>
+<td>tck</td>
+<td>刻度线的长度，以相对于绘图区域大小的分数表示（负值表示在图形内侧，0表示禁用刻度，1表示绘制网格线）；默认值-0.01</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-R"># 例子：
+x &lt;- c(1:10)
+y &lt;- x
+z &lt;- 10/x
+opar &lt;- par(no.readonly=TRUE)
+par(mar=c(5, 4, 4, 8) + 0.1)  # 增加边界大小
+plot(x, y, type=&quot;b&quot;, 
+    pch=21, col=&quot;red&quot;, 
+    yaxt=&quot;n&quot;, lty=3, ann=FALSE)  # 绘制x对y的图形
+lines(x, z, type=&quot;b&quot;, pch=22, col=&quot;blue&quot;, lty=2)  # 添加x对1/x的直线
+# 绘制自己自定义的坐标轴
+axis(2, at=x, labels=x, col=&quot;blue&quot;, las=2)
+axis(4, at=z, labels=round(z, digits=2), 
+     col.axis=&quot;blue&quot;, las=2, cex.axis=0.7, tck=-0.01)
+# 添加标题和文本
+mtext(&quot;y=1/x&quot;, side=4, line=3, cex.lab=1, las=2, col=&quot;blue&quot;)  # mtext()用于在图形边界添加文本
+title(&quot;An Example of Creative Axes&quot;, 
+     xlab=&quot;X value&quot;, 
+     ylab=&quot;Y=X&quot;)
+
+par(opar)
+</code></pre>
+<p>参考线：</p>
+<p>函数*<mark>abline()</mark>*可以为图形添加参考线。</p>
+<pre><code class="language-R">abline(h=yvalues, v=xvalues)
+abline(h=c(1, 5, 7))  # 在y为1,5,7的位置添加了水平实线
+abline(v=seq(1, 10, 2), lty=2, col=&quot;blue&quot;)  # 在x为1,3,5,7,9的位置添加了垂直的蓝色虚线
+</code></pre>
+<p>图例：</p>
+<p>使用函数*<mark>legend（）</mark>*添加图例</p>
+<pre><code class="language-R">legend(location, title, legend, )
+# 例子：
+dose &lt;- c(20, 30, 40, 45, 60)
+drugA &lt;- c(16, 20, 27, 40, 60)
+drugB &lt;- c(15, 18, 25, 31, 40)
+opar &lt;- par(no.readonly=TRUE)
+par(lwd=2, cex=1.5, font.lab=2)  # 增加文本，线条，符号，标签的宽度和大小
+plot(dose, drugA, type=&quot;b&quot;, 
+    pch=15, lty=1, col=&quot;red&quot;, ylim=c(0, 60), 
+    main=&quot;DrugA vs DrugB&quot;, 
+    xlab=&quot;Drug Dosage, ylab=&quot;Drug Response&quot;)
+lines(dose, drugB, type=&quot;b&quot;, 
+		pch=17, lty=2, col=&quot;blue&quot;)
+abline(h=c(30), lwd=1.5, lty=2, col=&quot;gray&quot;)
+# 添加次要刻度线
+library(Hmisc)  # Hmisc包需要先安装
+minor.tick(nx=3, ny=3, tick.ratio=0.5)
+# 添加图例
+legend(&quot;topleft&quot;, inset=0.05, title=&quot;Drug Type&quot;, c(&quot;A&quot;, &quot;B&quot;)
+		lty=c(1, 2), pch=c(15, 17), col=c(&quot;red&quot;, &quot;blue&quot;))
+par(opar)
+</code></pre>
+<p>文本标注：使用函数**<mark>text()</mark><strong>和</strong><mark>mtext()</mark>**将文本添加到图形上。**text()<strong>可以向绘图区域内部添加文本，而</strong>mtext()**则向图形的四个边界之一添加文本。</p>
+<pre><code class="language-R">text(x, y = NULL, labels = seq_along(x$x), adj = NULL,
+     pos = NULL, offset = 0.5, vfont = NULL,
+     cex = 1, col = NULL, font = NULL, ...)  # cex,col,font分别用来调整字号、颜色、字体样式。
+</code></pre>
+<pre><code class="language-R"># 用text()函数标示图形中的点
+# 示例1：
+attach(mtcars)
+plot(wt, mpg, 
+    main=&quot;Mileage vs. Car Weight&quot;, 
+    xlab=&quot;Weight&quot;, ylab=&quot;Mileage&quot;, 
+    pch=18, col=&quot;blue&quot;)
+text(wt, mpg, 
+    row.names(mtcars),
+    cex=0.6, pos=4, col=&quot;red&quot;)
+detach(mtcars)
+# 示例2：
+opar &lt;- par(no.readonly=TRUE)
+par(cex=1.5)
+plot(1:7,1:7, type=&quot;n&quot;)
+text(3,3,&quot;Example of default text&quot;)
+text(4,4,family=&quot;mono&quot;,&quot;Example of mono-spaced text&quot;)
+text(5,5,family=&quot;serif&quot;,&quot;Example of serif text&quot;)
+par(opar)
+</code></pre>
+<p>数学标注：使用类似TeX中的写法为图形创建数学符号和公式，使用help(plotmath)查看</p>
+<p>图形的组合：使用函数**<mark>par()</mark><strong>或</strong><mark>layout()</mark>**组合多幅图形</p>
+<pre><code class="language-R">attach(mtcars)
+opar &lt;- par(no.readonly=TRUE)
+par(mfrow=c(2,2))  # 按行排列，填充2×2矩阵
+plot(wt,mpg,main=&quot;Scatterplot of wt vs. mpg&quot;)
+plot(wt,disp, main=&quot;Scatterplot of wt vs. disp&quot;)
+hist(wt, main=&quot;Histogram of wt&quot;)
+boxplot(wt, main=&quot;Boxplot of wt&quot;)
+par(opar)
+detach(mtcars)
+# 示例2
+attach(mtcars)
+opar &lt;- par(no.readonly=TRUE)
+par(mfrow=c(3,1))  # 3行1列排布
+hist(wt)  # 高级绘图函数中包含了默认标题；可以通过main=&quot;&quot;或ann=FALSE禁用所有标题和标签
+hist(mpg)
+hist(disp)
+par(opar)
+detach(mtcars)
+# 使用函数layout()调用layout(mat)，mat是一个矩阵，指定了组合多个图形的所在位置
+attach(mtcars)
+layout(matrix(c(1,1,2,3), 2, 2, byrow=TRUE))  # 一幅图被置于第1行，另2幅图被置于第2行
+hist(wt)
+hist(mpg)
+hist(disp)
+detach(mtcars)
+# layout(函数中有widths=和heights=两个参数)
+attach(mmtcars)
+layout(matrix(c(1,1,2,3), 2, 2, byrow = TRUE), 
+      widths=c(3, 1), heights=c(1,2))  # 第一行图形高度是第2行图形高度的二分之一。右下角图形宽度是左下角图形宽度的三分之一
+hist(wt)
+hist(mpg)
+hist(disp)
+detach(mtcars)
+# 图形布局的精细控制，使用图形参数fig=；参数new=TRUE会默认新建一幅图形
+opar &lt;- par(no.readonly=TRUE)
+par(fig=c(0, 0.8, 0, 0.8))  # 将散点图设定为占据横向范围0~0.8，纵向范围0~0.8。
+plot(mtcars$wt, mtcars$mpg, 
+    xlab=&quot;Miles Per Gallon&quot;,
+    ylab=&quot;Car Weight&quot;)
+par(fig=c(0, 0.8, 0.55, 1), new=TRUE)  # 箱线图位于上方横向0~0.8，纵向0.55~1
+boxpolt(mtcars$wt, horizontal=TRUE, axes=FALSE)
+par(fig=c(0.65, 1, 0, 0.8), new=TRUE)  # 右侧箱线图占0.65~1，纵向0~0.8
+boxplot(mtcars$wt, axes=FALSE)
+mtext(&quot;Enhanced Scatterplot&quot;, side=3, outer=TRUE, line=-3)
+par(opar)  # 左下角坐标为（0,0），右上角坐标为（1,1）
+
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[基本数据管理]]></title>
+        <id>https://donngyu.github.io/dongyu.github.io/post/di-yi-tian/</id>
+        <link href="https://donngyu.github.io/dongyu.github.io/post/di-yi-tian/">
+        </link>
+        <updated>2024-03-16T13:27:47.000Z</updated>
+        <content type="html"><![CDATA[<p>数据往往需要经过转换后导入R中，数据前的准备很重要。</p>
+<blockquote>
+<p>一个示例：将数据转化格式导入R中<br>
+<img src="https://donngyu.github.io/dongyu.github.io//post-images/1710653403626.jpg" alt="" loading="lazy"></p>
+</blockquote>
+<pre><code class="language-R"># 创建leadership数据框
+manager &lt;- c(1, 2, 3, 4, 5)
+date &lt;- c(&quot;10/24/08&quot;, &quot;10/28/08&quot;, &quot;10/1/08&quot;, &quot;10/12/08&quot;, &quot;5/1/09&quot;)
+country &lt;- c(&quot;US&quot;, &quot;US&quot;, &quot;UK&quot;, &quot;UK&quot;, &quot;UK&quot;)
+gender &lt;- c(&quot;M&quot;, &quot;F&quot;, &quot;F&quot;, &quot;M&quot;, &quot;F&quot;)
+age &lt;- c(32, 45, 25, 39, 99)
+q1 &lt;- c(5, 3, 3, 3, 2)
+q2 &lt;- c(4, 5, 5, 3, 2)
+q3 &lt;- c(5, 2, 5, 4, 1)
+q4 &lt;- c(5, 5, 5, NA, 2)
+q5 &lt;- c(5, 5, 2, NA, 1)
+leadership &lt;- data.frame(manager, date, country, gender, age, 
+                        q1, q2, q3, q4, q5, stringsAsFactors=FALSE)  # 拒绝将字符串转换为因子
+</code></pre>
+<h5 id="11创建新变量或对现有变量进行变换">1.1创建新变量或对现有变量进行变换</h5>
+<pre><code class="language-R">mydata &lt;- data.frame(x1 = c(2, 2, 6, 4), 
+                    x2 = c(3, 4, 2, 8))
+# 1
+mydata$sumx &lt;- mydata$x1 + mydata$x2
+mydata$meanx &lt;- mydata$x1 + mydata$x2
+# 2
+attach(mydata)
+mydata$sumx &lt;- x1 + x2
+mydata$meanx &lt;- (x1 + x2)/2
+detach(mydata)
+# 3
+mydata &lt;- transform(mydata, 
+                   sumx = x1 + x2, 
+                   meanx = (x1 + x2)/2)  # 比较简化
+</code></pre>
+<h5 id="12变量的重编码">1.2变量的重编码：</h5>
+<p>​		1.将一个连续型变量修改为一组类别值；</p>
+<p>​		2.将误编码的值替换为正确值</p>
+<p>​		3.基于一组分数线创建一个表示及格/不及格的变量</p>
+<p>利用语句“variable[condition] &lt;- expression”，在condition值为TRUE时执行赋值</p>
+<pre><code class="language-R">leadership$age[leadership$age == 99] &lt;- NA
+leadership$agecat[leadership$age &gt; 75] &lt;- &quot;Elder&quot;
+leadership$agecat[leadership$age &gt;=55 &amp; 
+                 leadership$age &lt;=75] &lt;- &quot;Middle Aged&quot;
+leadership$agecat[leadership$age &lt;55] &lt;- &quot;Young&quot;
+# 可以设置得更紧凑
+leadership &lt;- within(leadership, {
+    agecat &lt;- NA
+    agecat[age &gt; 75] &lt;- &quot;Elder&quot;
+    agecat[age &gt;= 55 &amp; age &lt;=75] &lt;- &quot;Middle Aged&quot;
+    agecat[age &lt; 55] &lt;- &quot;Young&quot;
+})  # within()函数允许修改数据框
+# 若干程序包都提供使用的变量重编码函数，car包中的recode()函数十分简便地重编码数值型，字符型向量或因子，doBy包中的recodevar()函数，R中也自带了cut()
+</code></pre>
+<h5 id="13变量的重命名">1.3变量的重命名：</h5>
+<pre><code class="language-R">fix(leadership) # 调用一个交互式编辑器，单击变量名，在弹出的对话框中重命名
+# 通过编程方式函数names()重命名变量
+names(leadership)[2] &lt;- &quot;textDate&quot;
+names(leadership)[6:10] &lt;- c(&quot;item1&quot;, &quot;item2&quot;, &quot;item3&quot;, &quot;item4&quot;, &quot;item5&quot;) 
+# plyr包有一个rename()函数，可用于修改变量名。首先需要先安装plyr包
+install.package(&quot;plyr&quot;)
+library(plyr)
+leadership &lt;- rename(leadersip, c(manager=&quot;managerID&quot;, date=&quot;testDate&quot;))
+</code></pre>
+<h5 id="14缺失值">1.4缺失值：</h5>
+<p>在任何规模的项目中都可能存在缺失值。R提供了函数is.na()检测缺失值是否存在。假设向量：</p>
+<p>y &lt;- c(1, 2, 3, NA)使用函数is.na(y)将返回c(FALSE, FALSE, FALSE, TRUE)</p>
+<pre><code class="language-R"># 例如
+is.na(leadership[,6:10])  # 将数据框限制为第6列到第10列
+# 重编码某些值为缺失值
+leadership$age[leadership$age == 99] &lt;- NA
+# 在分析中排除缺失值，使用函数的na.rm=TRUE选项；也可以通过函数na.omit()移除所有含有缺失值的观测
+# 注意：在使用函数处理不完整的数据时，请查阅他们的帮助文档，检查函数是如何处理缺失值的
+leadership
+newdata &lt;- na.omit(leadership)  # 将含有缺失数据的行都删除
+newdata
+</code></pre>
+<h5 id="15日期值">1.5日期值：</h5>
+<p>日期值通常以字符串的形式输入到R中，然后转化为以数值形式存储的日期变量。函数as.Date()用于执行这种转化。其语法为as.Date(x, “input_format”)，其中x是字符型数据，*<mark>input_format</mark>*给出了用于读入日期的适当格式。</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%d</td>
+<td>数字表示的日期（0~31）</td>
+<td>01~31</td>
+</tr>
+<tr>
+<td>%a</td>
+<td>缩写的星期名</td>
+<td>Mon</td>
+</tr>
+<tr>
+<td>%A</td>
+<td>非缩写的星期名</td>
+<td>Monday</td>
+</tr>
+<tr>
+<td>%m</td>
+<td>月份（00~12）</td>
+<td>00~12</td>
+</tr>
+<tr>
+<td>%b</td>
+<td>缩写的月份</td>
+<td>Jan</td>
+</tr>
+<tr>
+<td>%B</td>
+<td>非缩写的月份</td>
+<td>January</td>
+</tr>
+<tr>
+<td>%y</td>
+<td>两位数的年份</td>
+<td>07</td>
+</tr>
+<tr>
+<td>%Y</td>
+<td>四位数的年份</td>
+<td>2007</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-R"># 日期值的默认输入格式为yyyy-mm-dd。
+mydates &lt;- as.Date(c(&quot;2007-06-22&quot;, &quot;2004-02-13&quot;))
+# 将默认格式的字符型数据转换为了对应日期。
+# 在leadership中，日期是以mm/dd/yy的格式编码为字符型变量的。
+myformat &lt;- &quot;%m/%d/%y&quot;
+leadership$date &lt;- as.Date(leadership$date, myformat)  # 使用指定格式读取字符型变量，并转换为日期变量替换到数据框中。
+Sys.Date()可以返回当天的日期，而date()则返回当天的日期和时间
+# 使用函数format(x, format=&quot;output_format&quot;)输出指定格式的日期值，还可提取日期值中的某些部分
+today &lt;- Sys.Date()
+format(today, format=&quot;%B %d %Y&quot;)
+format(today, format=&quot;%A&quot;)
+# 由于在R中是使用自1970年1月1日以来的天数表示的，则可以进行日期值上的算术运算
+startDate &lt;- as.Date(&quot;2004-02-13&quot;)
+endDate &lt;- as.Date(&quot;2011-01-22&quot;)
+days &lt;- endDate - startDate
+days
+# 也可以使用difftime()计算时间间隔，并以星期，天，时，分，秒表示
+today &lt;- Sys.Date()
+dob &lt;- as.Date(&quot;1956-10-12&quot;)
+difftime(today, dob, units=&quot;weeks&quot;)
+</code></pre>
+<h5 id="16类型转换">1.6类型转换：</h5>
+<p>R中提供了一系列用来判断某个对象的数据类型和将其转换为另一种数据类型的函数。</p>
+<pre><code class="language-R">a &lt;- c(1, 2, 3)
+a
+is.numeric(a)
+is.vector(a)
+a &lt;- as.character(a)  # as.datatype()这类函数可以让你在分析之前先将数据转换为要求的格式
+a
+is.numeric(a)
+is.vector(a)
+is.character(a)
+</code></pre>
+<h5 id="17数据排序">1.7数据排序：</h5>
+<blockquote>
+<p>使用函数*<mark>order()</mark>*函数对一个数据框进行排序</p>
+</blockquote>
+<pre><code class="language-R">newdata &lt;- leadership[order(leadership$age), ]
+attach(leadership)
+newdata &lt;- leadership[order(gender, age), ]  # 将各行依女性到男性，同样性别中按年龄升序排序
+detach(leadership)
+
+attach(leadership)
+newdata &lt;- leadership[order(gender, -age), ]  # 将各行依女性到男性，同样性别中按年龄降序排序
+detach(leadership)
+</code></pre>
+<h5 id="18数据集的合并">1.8数据集的合并</h5>
+<pre><code class="language-R"># 向数据框中添加列
+# 要横向合并两个数据框（数据集）使用merge()函数
+total &lt;- merge(dataframeA, dataframeB, by=&quot;ID&quot;)
+total &lt;- merge(dataframeA, dataframeB, by=&quot;ID&quot;, &quot;Country&quot;)  # 将两个数据框按照ID和country合并
+# 使用cbind()进行横向合并
+# 如果直接横向合并两个矩阵或数据框，并且不需要指定一个公共索引，可以直接使用cbind()函数
+total &lt;- cbind(A, B)
+# 向数据框添加行
+total &lt;- rbind(dataframeA, dataframeB)  # 两个数据框必须拥有相同的变量，顺序不必相同。dataframeA中有dataframeB中没有的变量，在合并之前需要处理：1.删除dataframeA中多余变量；2.在dataframeB中创建追加的变量并将值设为NA
+</code></pre>
+<h4 id="数据集取子集">数据集取子集</h4>
+<h5 id="11选入变量">1.1选入变量</h5>
+<p>从一个大数据集中选择有限数量的变量创建一个新的数据集是常有的事。</p>
+<pre><code class="language-R">newdata &lt;- leadership[, c(6:10)]  # 将行下标留空（，）表示默认选择所有行
+myvar &lt;- c(&quot;q1&quot;, &quot;q2&quot;, &quot;q3&quot;, &quot;q4&quot;, &quot;q5&quot;)
+newdata &lt;- leadership[myvar]
+
+myvar &lt;- paste(&quot;q&quot;, 1:5, sep=&quot;&quot;)  # 使用paste()函数创建了与上例中相同的字符型向量
+newdata &lt;- leadership[myvars]
+</code></pre>
+<h5 id="12剔除变量">1.2剔除变量</h5>
+<p>如果一个变量有很多缺失值，可能需要进行剔除变量</p>
+<pre><code class="language-R">myvars &lt;- names(leadership) %in% c(&quot;q3&quot;, &quot;q4&quot;)  # names(leadership)生成了一个包含所有变量名的字符型向量。%in% c(&quot;q3&quot;, &quot;q4&quot;)返回了一个逻辑型向量，names(leadership)中每个匹配q3,q4的元素的值为TRUE，反之为FALSE。
+newdata &lt;- leadership[!myvars]  # 运算符非（！）将逻辑值反转。leadership[c()]将其中含有FALSE的值
+
+newdata &lt;- leadership[c(-8, -9)]  # 将第8个和第9个变量进行剔除
+leadership$q3 &lt;- leadership$q4 &lt;- NULL  # NULL为未定义，与NA缺失不同
+</code></pre>
+<h5 id="13选入观测">1.3选入观测</h5>
+<pre><code class="language-R">newdata &lt;- leadership[1:3, ]  # 选择第1行到第3行
+newdata &lt;- leadership[leadership$gender==&quot;M&quot; &amp; 
+                     leadership$age &gt; 30, ]  # 选择30岁以上的男性
+attach(leadership)
+newdata &lt;- leadership[gender==&quot;M&quot; &amp; age &gt; 30,]
+detach(leadership)
+
+leadership$data &lt;- as.Data(leadership$date, &quot;%m/%d/%y&quot;)  # 使用格式mm/dd/yy将开始作为字符值读入的日期转换为日期值
+
+startdate &lt;- as.Date(&quot;2009-01-01&quot;)  # 创建开始日期
+enddate &lt;- as.Date(&quot;2009-10-31&quot;)  # 创建结束日期
+
+newdata &lt;- leadership[which(leadership$date &gt;= startdate &amp;
+                           leadership$date &lt;= enddate),]
+
+</code></pre>
+<h5 id="14-subset函数">1.4 subset()函数</h5>
+<p>使用*<mark>subset()</mark>*函数选择变量和观测</p>
+<pre><code class="language-R">newdata &lt;- subset(leadership, age &gt;= 35 | age &lt; 24, 
+                 select=c(q1, q2, q3, q4))  # 选择所有age值大于等于35或age值小于24的行，保留了变量q1到q4
+newdate &lt;- subset(leadership, gender==&quot;M&quot; &amp; age &gt; 25, 
+                 select=gender:q4)  # 选择所有25岁以上男性，并保留变量gender到q4(gender、q4和其间所有列)
+</code></pre>
+<h5 id="15随机抽样">1.5随机抽样</h5>
+<blockquote>
+<p>在数据挖掘和机器学习领域，从更大的数据集中抽样是很常见的做法，其中一份样本构建预测模型，另一份样本验证模型有效性。sample()函数能够从数据集中随机抽取一个大小为n的样本：</p>
+</blockquote>
+<pre><code class="language-R">mysample &lt;- leadership[sample(1:nrow(leadership), 3, replace=FALSE), ]  # sample()第一个参数是由要从中抽取的元素组成的向量。这个向量是1到数据框中观测的数量，第二个是要抽取的元素数量，第三个参数表示无放回抽样。
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ 基本图形]]></title>
+        <id>https://donngyu.github.io/dongyu.github.io/post/ce-shi-wen-zhang/</id>
+        <link href="https://donngyu.github.io/dongyu.github.io/post/ce-shi-wen-zhang/">
+        </link>
+        <updated>2024-03-16T13:14:12.000Z</updated>
+        <content type="html"><![CDATA[<p>1.条形图</p>
+<pre><code class="language-R">library(vcd)
+counts &lt;- table(Arthritis$Improved)  # 使用table()函数提取单元计数
+counts
+barplot(counts, 
+       main=&quot;Simple Bar Plot&quot;, 
+       xlab=&quot;Improvement&quot;, ylab=&quot;Frequency&quot;)  # 简单条形图
+barplot(counts, 
+       main=&quot;Horizontal Bar Plot&quot;，
+       xlab=&quot;Frequency&quot;, ylab=&quot;Improvement&quot;, 
+       horiz=TRUE)  # 水平条形图，horiz=TRUE
+# 如果height是一个矩阵而不是向量，则绘图结果为一幅堆砌条形图或分组条形图
+library(vcd)
+counts &lt;- table(Arthritis$Improved, Arthritis$Treatment)
+counts
+barplot(counts, 
+       main=&quot;Stacked Bar Plot&quot;, 
+       xlab=&quot;Treatment&quot;, ylab=&quot;Frequency&quot;, 
+       col=c(&quot;red&quot;, &quot;yellow&quot;, &quot;green&quot;), 
+       legend=rownames(counts))  # 堆砌条形图，legend()函数用于创建图例 
+barplot(counts, 
+       main=&quot;Grouped Bar Plot&quot;, 
+       xlab=&quot;Treatment&quot;, ylab=&quot;Frequency&quot;, 
+       col=c(&quot;red&quot;, &quot;yellow&quot;, &quot;green&quot;), 
+       legend=rownames(counts), beside=TRUE)  # 分组条形图；参数legend.text为图例提供了各图形的标签
+# 均值条形图
+states &lt;- data.frame(state.region, state.x77)
+means &lt;- aggregate(state$Illiteracy, by=list(state.region), FUN=mean)
+means
+means &lt;- means[order(means$x), ]  # 将均值从小到大排序
+means
+barplot(means$x, names.arg=means$Group.1)
+title(&quot;Mean Illiteracy Rate&quot;)
+# 条形图的微调：为条形图搭配标签
+par(mar=c(5,8,4,2))  # 增加y边界的大小
+par(las=2)  # 旋转条形的标签
+counts &lt;- table(Arthritis$Improved)
+barplot(counts, 
+       main=&quot;Treatment Outcome&quot;, 
+       horiz=TRUE, 
+       cex.names=0.8, 
+       names.arg=c(&quot;No Improvement&quot;, &quot;Some Improvement&quot;, 
+                  &quot;Marked Improvement&quot;))  # 修改标签文本
+</code></pre>
+<h5 id="2棘状图">2.棘状图</h5>
+<pre><code class="language-R">library(vcd)
+attach(Arthritis)
+counts &lt;- table(Treatment, Improved)
+spine(counts, main=&quot;Spinogram Example&quot;)  # 绘制棘状图
+detach(Arthritis)
+</code></pre>
+<h5 id="3饼图">3.饼图</h5>
+<pre><code class="language-R">par(mfrow=c(2, 2))  # 将四幅图形组合为一幅
+slices &lt;- c(10, 12.4, 16, 8)
+lbls &lt;- c(&quot;US&quot;, &quot;UK&quot;, &quot;Australia&quot;, &quot;Germany&quot;, &quot;France&quot;)
+pie(slices, labels = lbls, 
+   main=&quot;Simple Pie Chart&quot;)
+
+pct &lt;- round(slices/sum(slices)*100)
+lbls2 &lt;- paste(lbls, &quot; &quot;, pct, &quot;%&quot;, sep=&quot;&quot;)
+pie(slices, labels=lbls2, col=rainbow(length(lbls2)), 
+   main=&quot;Pie Chart with Percentages&quot;)  # 为饼图添加比例数值
+library(plotrix)
+pie3D(slices, labels=lbls,explode=0.1, 
+     main=&quot;3D Pie Chart&quot;)
+mytable &lt;- table(state.region)  # 为表格创建饼图
+lbls3 &lt;- paste(names(mytable), &quot;\n&quot;, mytable, sep=&quot;&quot;)
+pie(mytable, labels = lbls3, 
+   main=&quot;Pie Chart from a Table\n(with sample sizes)&quot;)
+</code></pre>
+<h5 id="4扇形图">4.扇形图</h5>
+<pre><code class="language-R">library(plotrix)
+slices &lt;- c(10, 12.4, 16, 8)
+lbls &lt;- c(&quot;US&quot;, &quot;UK&quot;, &quot;Australia&quot;, &quot;Germany&quot;, &quot;France&quot;)
+fan.plot(slices, labels = lbls, main=&quot;Fan Plot&quot;)  # 各个扇形相互重叠，并对直径进行修改
+</code></pre>
+<h5 id="5直方图">5.直方图</h5>
+<pre><code class="language-R">par(mfrow=c(2,2))
+hist(mtcars$mpg)  # 简单直方图
+hist(mtcars$mpg, 
+    breaks=12, 
+    col=&quot;red&quot;, 
+    xlab=&quot;Miles Per Gallon&quot;, 
+    main=&quot;Colored histogram with 12 bins&quot;)  # 指定组数和颜色
+
+hist(mtcars$mpg, 
+    freq=FALSE, 
+    breaks=12, 
+    col=&quot;red&quot;, 
+    xlab=&quot;Miles Per Gallon&quot;, 
+    main=&quot;Histogram, rug plot, density curve&quot;)
+rug(jitter(mtcars$mpg))
+lines(density(mtcars$mpg), col=&quot;blue&quot;, lwd=2)  # 添加轴须图
+
+x &lt;- mtcars$mpg
+h &lt;- hist(x, 
+         breaks=12, 
+         col=&quot;red&quot;, 
+         xlab=&quot;Mile Per Gallon&quot;, 
+         main=&quot;Histogram with normal curve and box&quot;)
+xfit&lt;-seq(min(x), max(x), length=40)
+yfit&lt;-dnorm(xfit, mean=mean(x), sd=sd(x))
+yfit&lt;-yfit*diff(h$mids[1:2])*length(x)
+lines(xfit, yfit, col=&quot;blue&quot;, lwd=2)  # 添加正态密度曲线和外框
+box()
+</code></pre>
+<h5 id="6核密度图">6.核密度图</h5>
+<pre><code class="language-R">par(mfrow=c(2,1))
+d &lt;- density(mtcars$mpg)
+plot(d)  # 完全使用默认设置绘制最简单的图形
+d &lt;- density(mtcars$mpg)
+plot(d, main=&quot;kernel Density of Miles Per Gallon&quot;)  # 添加一个标题
+polygon(d, col=&quot;red&quot;, border=&quot;blue&quot;)  # 将曲线修改为蓝色，并使用实心红色填充曲线下的区域
+rug(mtcars$mpg, col=&quot;brown&quot;)  # 添加棕色的轴须图
+# sm包中的sm.density.compare()函数可以向图形叠加两幅或更多的图形
+library(sm)
+attach(mtcars)
+cyl.f &lt;- factor(cyl, levels=c(4, 6, 8), 
+               labels=c(&quot;4 cylinder&quot;, &quot;6 cylinder&quot;, 
+                       &quot;8 cylinder&quot;))  # 创建分组因子
+sm.density.compare(mpg, cyl, xlab=&quot;Miles Per Gallon&quot;)  # 绘制密度图
+title(main=&quot;MPG Distribution by Car Cylinders&quot;)
+colfill &lt;- c(2:(1 + length(levels(cul.f))))
+legend(locator(1), levels(cyl.f), fill=colfill)  # 通过鼠标单击添加图例，location(1)表示用鼠标点击想让图例出现的位置来交互式地放置这个图例
+
+detach(mtcars)
+</code></pre>
+<h5 id="7箱线图">7.箱线图</h5>
+<pre><code class="language-R"># 绘制普通箱线图
+boxplot(mog ~ cyl, data=mtcars, 
+       main=&quot;Car Mileage Data&quot;, 
+       xlab=&quot;Number of Cylinders&quot;, 
+       ylab=&quot;Miles Per Gallon&quot;)
+# 绘制带凹槽的箱线图
+boxplot(mpg ~ cyl, data=mtcars, 
+       notch=TRUE, 
+       varwidth=TRUE, 
+       col=&quot;red&quot;, 
+       main=&quot;Car Mileage Data&quot;, 
+       xlab=&quot;Number of Cylinders&quot;, 
+       ylab=&quot;Miles Per Gallon&quot;)  # varwidth=TRUE使箱线图的宽度与各自的样本大小成正比
+# 两个交叉因子的箱线图
+mtcars$cyl.f &lt;- factor(mtcar$cyl, 
+                      levels=c(4, 6, 8), 
+                      labels=c(&quot;4&quot;, &quot;6&quot;, &quot;8&quot;))  # 创建气缸数量的因子
+mtcars$am.f &lt;- factor(mtcars$am, 
+                     levels=c(0, 1), 
+                     labels=c(&quot;auto&quot;, &quot;standard&quot;))  # 创建变速箱类型的因子
+boxplot(mpg ~ am.f *cyl.f, 
+       data=mtcars, 
+       varwidth=TRUE, 
+       col=c(&quot;gold&quot;, &quot;darkgreen&quot;), 
+       main=&quot;MPG Distribution by Auto Type&quot;, 
+        xlab=&quot;Auto Type&quot;, ylab=&quot;Miles Per Gallon&quot;)  # 生成箱线图
+</code></pre>
+<h5 id="8小提琴图">8.小提琴图</h5>
+<pre><code class="language-R"># 使用vioplot()函数绘制小提琴图时先安装包vioplot
+library(vioplot)
+x1 &lt;- mtcars$mpg[mtcars$cyl==4]
+x2 &lt;- mtcars$mpg[mtcars$cyl==6]
+x3 &lt;- mtcars$mpg[mtcars$cyl==8]
+vioplot(x1, x2, x3, 
+       names=c(&quot;4 cyl&quot;, &quot;6 cyl&quot;, &quot;8cyl&quot;), 
+       col=&quot;gold&quot;)
+
+title(&quot;Violin Plots of Miles Per Gallon&quot;, ylab=&quot;Miles Per Gallon&quot;, 
+     xlab=&quot;Number of Cylinders&quot;)
+</code></pre>
+<h5 id="9点图">9.点图</h5>
+<pre><code class="language-R"># 点图提供了在简单水平刻度上绘制大量有标签值的方法
+x &lt;- mtcars[order(mtcars$mpg),]  # 根据每加仑汽油行驶英里数（从最低到最高）对数据框mtcars进行排序，结果保存为数据框x
+x$cyl &lt;- factor(x$cyl)
+x$color[x$cyl==4] &lt;- &quot;red&quot;
+x$color[x$cyl==6] &lt;- &quot;blue&quot;
+x$color[x$cyl==8] &lt;- &quot;darkgreen&quot;
+dotchart(x$mpg, 
+        labels = row.names(x), 
+        cex=.7, 
+        groups = x$cyl, 
+        gcolor = &quot;black&quot;, 
+        color = x$color, 
+        pch=19, 
+        main = &quot;Gas Mileage for Car Models\ngrouped by cylinder&quot;, 
+        xlab = &quot;Miles Per Gallon&quot;)
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello Gridea]]></title>
+        <id>https://donngyu.github.io/dongyu.github.io/post/hello-gridea/</id>
+        <link href="https://donngyu.github.io/dongyu.github.io/post/hello-gridea/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+<!-- more -->
+<p><a href="https://github.com/getgridea/gridea">Github</a><br>
+<a href="https://gridea.dev/">Gridea 主页</a><br>
+<a href="https://fehey.com/">示例网站</a></p>
+<h2 id="特性">特性👇</h2>
+<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
+<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
+<p>🏷️  你可以对文章进行标签分组</p>
+<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
+<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
+<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
+<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
+<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
+<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
+<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
+<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
+<p>未来，它一定会成为你离不开的伙伴</p>
+<p>尽情发挥你的才华吧！</p>
+<p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+</feed>

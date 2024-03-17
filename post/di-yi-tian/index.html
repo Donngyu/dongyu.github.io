@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>基本数据管理 | 东隅的博客小站</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://donngyu.github.io/dongyu.github.io//favicon.ico?v=1710685516062">
+<link rel="stylesheet" href="https://donngyu.github.io/dongyu.github.io//styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="数据往往需要经过转换后导入R中，数据前的准备很重要。
+
+一个示例：将数据转化格式导入R中
+
+
+# 创建leadership数据框
+manager &lt;- c(1, 2, 3, 4, 5)
+date &lt;- c(&quot;10/24..." />
+    <meta name="keywords" content="R语言" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://donngyu.github.io/dongyu.github.io/">
+        <img src="https://donngyu.github.io/dongyu.github.io//images/avatar.png?v=1710685516062" class="site-logo">
+        <h1 class="site-title">东隅的博客小站</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/post/dong-yu-de-bo-ke-xiao-zhan" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/archives" class="site-nav">
+            分组
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/tags" class="site-nav">
+            分类
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/post/guan-yu-wo" class="site-nav">
+            关于我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      千里之行，始于足下
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://donngyu.github.io/dongyu.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">基本数据管理</h2>
+            <div class="post-date">2024-03-16</div>
+            
+              <div class="feature-container" style="background-image: url('https://donngyu.github.io/dongyu.github.io//post-images/di-yi-tian.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <p>数据往往需要经过转换后导入R中，数据前的准备很重要。</p>
+<blockquote>
+<p>一个示例：将数据转化格式导入R中<br>
+<img src="https://donngyu.github.io/dongyu.github.io//post-images/1710653403626.jpg" alt="" loading="lazy"></p>
+</blockquote>
+<pre><code class="language-R"># 创建leadership数据框
+manager &lt;- c(1, 2, 3, 4, 5)
+date &lt;- c(&quot;10/24/08&quot;, &quot;10/28/08&quot;, &quot;10/1/08&quot;, &quot;10/12/08&quot;, &quot;5/1/09&quot;)
+country &lt;- c(&quot;US&quot;, &quot;US&quot;, &quot;UK&quot;, &quot;UK&quot;, &quot;UK&quot;)
+gender &lt;- c(&quot;M&quot;, &quot;F&quot;, &quot;F&quot;, &quot;M&quot;, &quot;F&quot;)
+age &lt;- c(32, 45, 25, 39, 99)
+q1 &lt;- c(5, 3, 3, 3, 2)
+q2 &lt;- c(4, 5, 5, 3, 2)
+q3 &lt;- c(5, 2, 5, 4, 1)
+q4 &lt;- c(5, 5, 5, NA, 2)
+q5 &lt;- c(5, 5, 2, NA, 1)
+leadership &lt;- data.frame(manager, date, country, gender, age, 
+                        q1, q2, q3, q4, q5, stringsAsFactors=FALSE)  # 拒绝将字符串转换为因子
+</code></pre>
+<h5 id="11创建新变量或对现有变量进行变换">1.1创建新变量或对现有变量进行变换</h5>
+<pre><code class="language-R">mydata &lt;- data.frame(x1 = c(2, 2, 6, 4), 
+                    x2 = c(3, 4, 2, 8))
+# 1
+mydata$sumx &lt;- mydata$x1 + mydata$x2
+mydata$meanx &lt;- mydata$x1 + mydata$x2
+# 2
+attach(mydata)
+mydata$sumx &lt;- x1 + x2
+mydata$meanx &lt;- (x1 + x2)/2
+detach(mydata)
+# 3
+mydata &lt;- transform(mydata, 
+                   sumx = x1 + x2, 
+                   meanx = (x1 + x2)/2)  # 比较简化
+</code></pre>
+<h5 id="12变量的重编码">1.2变量的重编码：</h5>
+<p>​		1.将一个连续型变量修改为一组类别值；</p>
+<p>​		2.将误编码的值替换为正确值</p>
+<p>​		3.基于一组分数线创建一个表示及格/不及格的变量</p>
+<p>利用语句“variable[condition] &lt;- expression”，在condition值为TRUE时执行赋值</p>
+<pre><code class="language-R">leadership$age[leadership$age == 99] &lt;- NA
+leadership$agecat[leadership$age &gt; 75] &lt;- &quot;Elder&quot;
+leadership$agecat[leadership$age &gt;=55 &amp; 
+                 leadership$age &lt;=75] &lt;- &quot;Middle Aged&quot;
+leadership$agecat[leadership$age &lt;55] &lt;- &quot;Young&quot;
+# 可以设置得更紧凑
+leadership &lt;- within(leadership, {
+    agecat &lt;- NA
+    agecat[age &gt; 75] &lt;- &quot;Elder&quot;
+    agecat[age &gt;= 55 &amp; age &lt;=75] &lt;- &quot;Middle Aged&quot;
+    agecat[age &lt; 55] &lt;- &quot;Young&quot;
+})  # within()函数允许修改数据框
+# 若干程序包都提供使用的变量重编码函数，car包中的recode()函数十分简便地重编码数值型，字符型向量或因子，doBy包中的recodevar()函数，R中也自带了cut()
+</code></pre>
+<h5 id="13变量的重命名">1.3变量的重命名：</h5>
+<pre><code class="language-R">fix(leadership) # 调用一个交互式编辑器，单击变量名，在弹出的对话框中重命名
+# 通过编程方式函数names()重命名变量
+names(leadership)[2] &lt;- &quot;textDate&quot;
+names(leadership)[6:10] &lt;- c(&quot;item1&quot;, &quot;item2&quot;, &quot;item3&quot;, &quot;item4&quot;, &quot;item5&quot;) 
+# plyr包有一个rename()函数，可用于修改变量名。首先需要先安装plyr包
+install.package(&quot;plyr&quot;)
+library(plyr)
+leadership &lt;- rename(leadersip, c(manager=&quot;managerID&quot;, date=&quot;testDate&quot;))
+</code></pre>
+<h5 id="14缺失值">1.4缺失值：</h5>
+<p>在任何规模的项目中都可能存在缺失值。R提供了函数is.na()检测缺失值是否存在。假设向量：</p>
+<p>y &lt;- c(1, 2, 3, NA)使用函数is.na(y)将返回c(FALSE, FALSE, FALSE, TRUE)</p>
+<pre><code class="language-R"># 例如
+is.na(leadership[,6:10])  # 将数据框限制为第6列到第10列
+# 重编码某些值为缺失值
+leadership$age[leadership$age == 99] &lt;- NA
+# 在分析中排除缺失值，使用函数的na.rm=TRUE选项；也可以通过函数na.omit()移除所有含有缺失值的观测
+# 注意：在使用函数处理不完整的数据时，请查阅他们的帮助文档，检查函数是如何处理缺失值的
+leadership
+newdata &lt;- na.omit(leadership)  # 将含有缺失数据的行都删除
+newdata
+</code></pre>
+<h5 id="15日期值">1.5日期值：</h5>
+<p>日期值通常以字符串的形式输入到R中，然后转化为以数值形式存储的日期变量。函数as.Date()用于执行这种转化。其语法为as.Date(x, “input_format”)，其中x是字符型数据，*<mark>input_format</mark>*给出了用于读入日期的适当格式。</p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%d</td>
+<td>数字表示的日期（0~31）</td>
+<td>01~31</td>
+</tr>
+<tr>
+<td>%a</td>
+<td>缩写的星期名</td>
+<td>Mon</td>
+</tr>
+<tr>
+<td>%A</td>
+<td>非缩写的星期名</td>
+<td>Monday</td>
+</tr>
+<tr>
+<td>%m</td>
+<td>月份（00~12）</td>
+<td>00~12</td>
+</tr>
+<tr>
+<td>%b</td>
+<td>缩写的月份</td>
+<td>Jan</td>
+</tr>
+<tr>
+<td>%B</td>
+<td>非缩写的月份</td>
+<td>January</td>
+</tr>
+<tr>
+<td>%y</td>
+<td>两位数的年份</td>
+<td>07</td>
+</tr>
+<tr>
+<td>%Y</td>
+<td>四位数的年份</td>
+<td>2007</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-R"># 日期值的默认输入格式为yyyy-mm-dd。
+mydates &lt;- as.Date(c(&quot;2007-06-22&quot;, &quot;2004-02-13&quot;))
+# 将默认格式的字符型数据转换为了对应日期。
+# 在leadership中，日期是以mm/dd/yy的格式编码为字符型变量的。
+myformat &lt;- &quot;%m/%d/%y&quot;
+leadership$date &lt;- as.Date(leadership$date, myformat)  # 使用指定格式读取字符型变量，并转换为日期变量替换到数据框中。
+Sys.Date()可以返回当天的日期，而date()则返回当天的日期和时间
+# 使用函数format(x, format=&quot;output_format&quot;)输出指定格式的日期值，还可提取日期值中的某些部分
+today &lt;- Sys.Date()
+format(today, format=&quot;%B %d %Y&quot;)
+format(today, format=&quot;%A&quot;)
+# 由于在R中是使用自1970年1月1日以来的天数表示的，则可以进行日期值上的算术运算
+startDate &lt;- as.Date(&quot;2004-02-13&quot;)
+endDate &lt;- as.Date(&quot;2011-01-22&quot;)
+days &lt;- endDate - startDate
+days
+# 也可以使用difftime()计算时间间隔，并以星期，天，时，分，秒表示
+today &lt;- Sys.Date()
+dob &lt;- as.Date(&quot;1956-10-12&quot;)
+difftime(today, dob, units=&quot;weeks&quot;)
+</code></pre>
+<h5 id="16类型转换">1.6类型转换：</h5>
+<p>R中提供了一系列用来判断某个对象的数据类型和将其转换为另一种数据类型的函数。</p>
+<pre><code class="language-R">a &lt;- c(1, 2, 3)
+a
+is.numeric(a)
+is.vector(a)
+a &lt;- as.character(a)  # as.datatype()这类函数可以让你在分析之前先将数据转换为要求的格式
+a
+is.numeric(a)
+is.vector(a)
+is.character(a)
+</code></pre>
+<h5 id="17数据排序">1.7数据排序：</h5>
+<blockquote>
+<p>使用函数*<mark>order()</mark>*函数对一个数据框进行排序</p>
+</blockquote>
+<pre><code class="language-R">newdata &lt;- leadership[order(leadership$age), ]
+attach(leadership)
+newdata &lt;- leadership[order(gender, age), ]  # 将各行依女性到男性，同样性别中按年龄升序排序
+detach(leadership)
+
+attach(leadership)
+newdata &lt;- leadership[order(gender, -age), ]  # 将各行依女性到男性，同样性别中按年龄降序排序
+detach(leadership)
+</code></pre>
+<h5 id="18数据集的合并">1.8数据集的合并</h5>
+<pre><code class="language-R"># 向数据框中添加列
+# 要横向合并两个数据框（数据集）使用merge()函数
+total &lt;- merge(dataframeA, dataframeB, by=&quot;ID&quot;)
+total &lt;- merge(dataframeA, dataframeB, by=&quot;ID&quot;, &quot;Country&quot;)  # 将两个数据框按照ID和country合并
+# 使用cbind()进行横向合并
+# 如果直接横向合并两个矩阵或数据框，并且不需要指定一个公共索引，可以直接使用cbind()函数
+total &lt;- cbind(A, B)
+# 向数据框添加行
+total &lt;- rbind(dataframeA, dataframeB)  # 两个数据框必须拥有相同的变量，顺序不必相同。dataframeA中有dataframeB中没有的变量，在合并之前需要处理：1.删除dataframeA中多余变量；2.在dataframeB中创建追加的变量并将值设为NA
+</code></pre>
+<h4 id="数据集取子集">数据集取子集</h4>
+<h5 id="11选入变量">1.1选入变量</h5>
+<p>从一个大数据集中选择有限数量的变量创建一个新的数据集是常有的事。</p>
+<pre><code class="language-R">newdata &lt;- leadership[, c(6:10)]  # 将行下标留空（，）表示默认选择所有行
+myvar &lt;- c(&quot;q1&quot;, &quot;q2&quot;, &quot;q3&quot;, &quot;q4&quot;, &quot;q5&quot;)
+newdata &lt;- leadership[myvar]
+
+myvar &lt;- paste(&quot;q&quot;, 1:5, sep=&quot;&quot;)  # 使用paste()函数创建了与上例中相同的字符型向量
+newdata &lt;- leadership[myvars]
+</code></pre>
+<h5 id="12剔除变量">1.2剔除变量</h5>
+<p>如果一个变量有很多缺失值，可能需要进行剔除变量</p>
+<pre><code class="language-R">myvars &lt;- names(leadership) %in% c(&quot;q3&quot;, &quot;q4&quot;)  # names(leadership)生成了一个包含所有变量名的字符型向量。%in% c(&quot;q3&quot;, &quot;q4&quot;)返回了一个逻辑型向量，names(leadership)中每个匹配q3,q4的元素的值为TRUE，反之为FALSE。
+newdata &lt;- leadership[!myvars]  # 运算符非（！）将逻辑值反转。leadership[c()]将其中含有FALSE的值
+
+newdata &lt;- leadership[c(-8, -9)]  # 将第8个和第9个变量进行剔除
+leadership$q3 &lt;- leadership$q4 &lt;- NULL  # NULL为未定义，与NA缺失不同
+</code></pre>
+<h5 id="13选入观测">1.3选入观测</h5>
+<pre><code class="language-R">newdata &lt;- leadership[1:3, ]  # 选择第1行到第3行
+newdata &lt;- leadership[leadership$gender==&quot;M&quot; &amp; 
+                     leadership$age &gt; 30, ]  # 选择30岁以上的男性
+attach(leadership)
+newdata &lt;- leadership[gender==&quot;M&quot; &amp; age &gt; 30,]
+detach(leadership)
+
+leadership$data &lt;- as.Data(leadership$date, &quot;%m/%d/%y&quot;)  # 使用格式mm/dd/yy将开始作为字符值读入的日期转换为日期值
+
+startdate &lt;- as.Date(&quot;2009-01-01&quot;)  # 创建开始日期
+enddate &lt;- as.Date(&quot;2009-10-31&quot;)  # 创建结束日期
+
+newdata &lt;- leadership[which(leadership$date &gt;= startdate &amp;
+                           leadership$date &lt;= enddate),]
+
+</code></pre>
+<h5 id="14-subset函数">1.4 subset()函数</h5>
+<p>使用*<mark>subset()</mark>*函数选择变量和观测</p>
+<pre><code class="language-R">newdata &lt;- subset(leadership, age &gt;= 35 | age &lt; 24, 
+                 select=c(q1, q2, q3, q4))  # 选择所有age值大于等于35或age值小于24的行，保留了变量q1到q4
+newdate &lt;- subset(leadership, gender==&quot;M&quot; &amp; age &gt; 25, 
+                 select=gender:q4)  # 选择所有25岁以上男性，并保留变量gender到q4(gender、q4和其间所有列)
+</code></pre>
+<h5 id="15随机抽样">1.5随机抽样</h5>
+<blockquote>
+<p>在数据挖掘和机器学习领域，从更大的数据集中抽样是很常见的做法，其中一份样本构建预测模型，另一份样本验证模型有效性。sample()函数能够从数据集中随机抽取一个大小为n的样本：</p>
+</blockquote>
+<pre><code class="language-R">mysample &lt;- leadership[sample(1:nrow(leadership), 3, replace=FALSE), ]  # sample()第一个参数是由要从中抽取的元素组成的向量。这个向量是1到数据框中观测的数量，第二个是要抽取的元素数量，第三个参数表示无放回抽样。
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://donngyu.github.io/dongyu.github.io/tag/84GU50qut/" class="tag">
+                    R语言
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://donngyu.github.io/dongyu.github.io/post/ce-shi-wen-zhang/">
+                  <h3 class="post-title">
+                     基本图形
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

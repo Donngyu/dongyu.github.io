@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>数据的输入 | 东隅的博客小站</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://donngyu.github.io/dongyu.github.io//favicon.ico?v=1710685516062">
+<link rel="stylesheet" href="https://donngyu.github.io/dongyu.github.io//styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="1.使用键盘输入数据
+两种方法：用R内置的文本编辑器或直接在代码中嵌入数据
+（1）文本编辑器：使用函数*edit()*
+
+a.创建一个空数据框
+
+
+b.针对数据对象调用文本编辑器
+
+mydata &lt;- data.frame(age=n..." />
+    <meta name="keywords" content="R语言" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://donngyu.github.io/dongyu.github.io/">
+        <img src="https://donngyu.github.io/dongyu.github.io//images/avatar.png?v=1710685516062" class="site-logo">
+        <h1 class="site-title">东隅的博客小站</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/post/dong-yu-de-bo-ke-xiao-zhan" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/archives" class="site-nav">
+            分组
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/tags" class="site-nav">
+            分类
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/post/guan-yu-wo" class="site-nav">
+            关于我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      千里之行，始于足下
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://donngyu.github.io/dongyu.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">数据的输入</h2>
+            <div class="post-date">2024-03-17</div>
+            
+              <div class="feature-container" style="background-image: url('https://donngyu.github.io/dongyu.github.io//post-images/shu-ju-de-shu-ru.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h5 id="1使用键盘输入数据">1.使用键盘输入数据</h5>
+<p>两种方法：用<strong>R内置的文本编辑器</strong>或<strong>直接在代码中嵌入数据</strong></p>
+<p>（1）文本编辑器：使用函数*<mark>edit()</mark>*</p>
+<blockquote>
+<p>a.创建一个空数据框</p>
+</blockquote>
+<blockquote>
+<p>b.针对数据对象调用文本编辑器</p>
+</blockquote>
+<pre><code class="language-R">mydata &lt;- data.frame(age=numeric(0),
+                    gender=character(0), weight=numeric(0))
+mydata &lt;- edit(mydata)
+# age=numeric(0)的赋值语句将创建一个指定模式但不含实际数据的变量，函数edit()是在对象副本上操作，需要将修改赋值到一个目标上
+</code></pre>
+<p>（2）直接在代码中嵌入数据集</p>
+<pre><code class="language-R">mydatatxt &lt;- &quot;
+age gender weight
+25 m 166
+30 f 115
+18 f 120
+&quot;
+mydata &lt;- read.table(header=TRUE, text=mydatatxt)  # read.table()用来处理字符串并返回数据框
+</code></pre>
+<p>函数*<mark>read.table()</mark>*导入数据：</p>
+<pre><code class="language-R"># 例如：
+mydataframe &lt;- read.table(file, options)  # options是控制如何处理数据的选项
+# 用法：
+read.table(file, header = FALSE, sep = &quot;&quot;, quote = &quot;\&quot;'&quot;,
+           dec = &quot;.&quot;, numerals = c(&quot;allow.loss&quot;, &quot;warn.loss&quot;, &quot;no.loss&quot;),
+           row.names, col.names, as.is = !stringsAsFactors, tryLogical = TRUE,
+           na.strings = &quot;NA&quot;, colClasses = NA, nrows = -1,
+           skip = 0, check.names = TRUE, fill = !blank.lines.skip,
+           strip.white = FALSE, blank.lines.skip = TRUE,
+           comment.char = &quot;#&quot;,
+           allowEscapes = FALSE, flush = FALSE,
+           stringsAsFactors = FALSE,
+           fileEncoding = &quot;&quot;, encoding = &quot;unknown&quot;, text, skipNul = FALSE)
+</code></pre>
+<p>读取csv格式的文件：</p>
+<pre><code class="language-R">grades &lt;- read.table(&quot;studentgrades.csv&quot;, header=TRUE, 
+                    row.names=&quot;StudentID&quot;, sep=',')
+grades
+str(grades)  # read.table()默认会将字符变量转化为因子，加上选项stringASFactors=FALSE对所有的字符变量去掉这个行为，还可以用colClasses选项对每一列都指定一个类
+# 例如：
+grades &lt;- read.table(&quot;studentgrades.csv&quot;, header=TRUE, 
+                    row.names=&quot;StudentID&quot;, sep=&quot;,&quot;, 
+                    colClasses=c(&quot;character&quot;, &quot;character&quot;, &quot;character&quot;, 
+                                &quot;numeric&quot;, &quot;numeric&quot;, &quot;numeric&quot;))
+grades
+str(grades)
+</code></pre>
+<h5 id="2数据集的标注">2.数据集的标注</h5>
+<p>（1）变量标签</p>
+<blockquote>
+<p>R处理变量标签能力有限，可以将变量标签作为变量名，通过位置下标进行访问，例如：</p>
+<pre><code class="language-R">names(patientdata)[2] &lt;- &quot;Age at hospitalization (in years)&quot; 
+# 将age重命名为“Age at hospitalization （in years）”
+</code></pre>
+</blockquote>
+<p>（2）值标签</p>
+<p>假设你有一个名为gender的变量，其中1表示男性，2表示女性。代码如下：</p>
+<pre><code class="language-R">patientdata$gender &lt;- factor(patientdata$gender, 
+                            levels=c(1, 2), 
+                            labels=c(&quot;male&quot;, &quot;female&quot;))
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://donngyu.github.io/dongyu.github.io/tag/84GU50qut/" class="tag">
+                    R语言
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://donngyu.github.io/dongyu.github.io/post/tu-xing-chu-jie/">
+                  <h3 class="post-title">
+                    图形初阶
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

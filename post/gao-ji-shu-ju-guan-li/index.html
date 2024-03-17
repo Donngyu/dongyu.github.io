@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>高级数据管理 | 东隅的博客小站</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://donngyu.github.io/dongyu.github.io//favicon.ico?v=1710685516062">
+<link rel="stylesheet" href="https://donngyu.github.io/dongyu.github.io//styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="
+1.1数学函数
+对数据做变换，对结果进行格式化
+1.2统计函数
+
+
+
+统计
+函数
+
+
+
+
+mean()
+median()
+
+
+sd()
+var()
+
+
+mad()
+quantile()
+
+
+range()
+sum()
+
+
+diff()
+m..." />
+    <meta name="keywords" content="R语言" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://donngyu.github.io/dongyu.github.io/">
+        <img src="https://donngyu.github.io/dongyu.github.io//images/avatar.png?v=1710685516062" class="site-logo">
+        <h1 class="site-title">东隅的博客小站</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/post/dong-yu-de-bo-ke-xiao-zhan" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/archives" class="site-nav">
+            分组
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/tags" class="site-nav">
+            分类
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/post/guan-yu-wo" class="site-nav">
+            关于我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      千里之行，始于足下
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://donngyu.github.io/dongyu.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">高级数据管理</h2>
+            <div class="post-date">2024-03-17</div>
+            
+              <div class="feature-container" style="background-image: url('https://donngyu.github.io/dongyu.github.io//post-images/gao-ji-shu-ju-guan-li.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <figure data-type="image" tabindex="1"><img src="https://donngyu.github.io/dongyu.github.io//post-images/1710684834152.jpg" alt="" loading="lazy"></figure>
+<h5 id="11数学函数">1.1数学函数</h5>
+<p>对数据做变换，对结果进行格式化</p>
+<h5 id="12统计函数">1.2统计函数</h5>
+<table>
+<thead>
+<tr>
+<th>统计</th>
+<th>函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mean()</td>
+<td>median()</td>
+</tr>
+<tr>
+<td>sd()</td>
+<td>var()</td>
+</tr>
+<tr>
+<td>mad()</td>
+<td>quantile()</td>
+</tr>
+<tr>
+<td>range()</td>
+<td>sum()</td>
+</tr>
+<tr>
+<td>diff()</td>
+<td>min()</td>
+</tr>
+<tr>
+<td>max()</td>
+<td>scale()</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-R"> x &lt;- c(1, 2, 3, 4, 5, 6, 7, 8)
+mean(x)
+sd(x)
+scale()  # 将变量标准化为均值为M，标准差为sd的变量
+</code></pre>
+<h5 id="13概率函数">1.3概率函数</h5>
+<p>d=密度函数；p=分布函数；q=分位数函数；r=生成随机数</p>
+<pre><code class="language-R">x &lt;- pretty(c(-3, 3), 30)
+y &lt;- dnorm(x)
+plot(x, y, 
+    type=&quot;1&quot;)
+# 设定随机数种子
+set.seed(1234)  # 通过手动设定种子，可以重现随机数
+runif(5)
+# 生成多元正态数据，使用MASS包中的mvrnorm()
+mvrnorm(n, mean, sigma)
+# 例子
+library(MASS)
+options(digits=3)
+set.seed(1234)
+# 设定随机数种子
+mean &lt;- c(230.7, 146.7, 3.6)
+sigmma &lt;- matrix(c(15360.8, 6721.2, -47.1, 
+                  6721.2, 4700.9, -16.5, 
+                  -47.1, -16.5, 0.3), nrow=3, ncol=3)
+# 指定均值向量，协方差阵
+mydata &lt;- mvrnorm(500, mean, sigma)  # 生成500个伪随机观测
+mydata &lt;- as.data.frame(mydata)
+names(mydata) &lt;- c(&quot;y&quot;, &quot;x1&quot;, &quot;x2&quot;)
+dim(mydata)
+head(mydata, n=10)
+</code></pre>
+<h5 id="14字符处理函数">1.4字符处理函数</h5>
+<p>正则表达式</p>
+<h5 id="15其他实用函数">1.5其他实用函数</h5>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>length()</td>
+<td>对象x的长度</td>
+</tr>
+<tr>
+<td>seq(from, to, by)</td>
+<td>生成一个序列</td>
+</tr>
+<tr>
+<td>rep(x, n)</td>
+<td>将x重复n次</td>
+</tr>
+<tr>
+<td>cut(x, n)</td>
+<td>将连续型变量x分割为有着n个水平的因子</td>
+</tr>
+<tr>
+<td>pretty(x, n)</td>
+<td>创建美观的分割点。选取n+1个等间距的取整值</td>
+</tr>
+<tr>
+<td>cat(…，file = “myfile”, append = FALSE)</td>
+<td>连接…中的对象，将其输出到屏幕上或文件中</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-R"># 将一个函数应用到矩阵的所有行（列）
+mydata &lt;- matrix(rnorm(30), nrow=6)
+apply(mydata, 1, mean)
+apply(mydata, 2, mean)  # 计算每列的均值
+apply(mydata, 1, mean, trim=0.2)  # 计算每行的截尾均值：基于中间60%的数据，最高和最低20%的值被忽略
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://donngyu.github.io/dongyu.github.io//post-images/1710684852963.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://donngyu.github.io/dongyu.github.io//post-images/1710684866136.jpg" alt="" loading="lazy"></figure>
+<pre><code class="language-R"># 接上
+z &lt;- scale(roster[,2:4])  # 进行标准化，默认标准正态分布
+score &lt;- apply(z, 1, mean)
+roster &lt;- cbind(roster, score)  # 计算均值mean后将其添加到花名册中
+y &lt;- quantile(roster$score, c(.8, .6, .4, .2))  # 给出综合得分百分数
+y
+# 使用函数strsplit()以空格为界把学生姓名拆分为姓氏和名字
+name &lt;- strsplit((roster$Student), &quot; &quot;)
+# 使用函数sapply()提取列表中每个成分的第一个元素，放入一个存储名字的向量Firstname，并提取第二个元素，放入存储姓氏的向量Lastname。&quot;[&quot;是一个可以提取某个对象的一部分的函数
+Firstname &lt;- sapply(name, &quot;[&quot;, 1)
+Lastname &lt;- sapply(name, &quot;[&quot;, 2)
+roster &lt;- cbind(Firstname, Lastname, roster[,-1])
+roster[order(Lastname, Firstname), ]  # 依据姓氏和名字进行排序
+
+</code></pre>
+<h4 id="54-控制流">5.4 控制流</h4>
+<pre><code>##### 	1.重复和循环
+</code></pre>
+<p>循环结构重复地执行一个或一系列语句，直到某个条件不为真；包括for，while结构。</p>
+<pre><code class="language-R"># for循环
+for(var in seq) statement
+for(i in 1:10) print(&quot;Hello&quot;)  # 单词Hello被循环输出了10次
+# while结构：while循环重复地执行一个语句，直到条件不为真为止
+i &lt;- 10
+while(i &gt; 0){print(&quot;Hello&quot;);i &lt;- i - 1}
+</code></pre>
+<h5 id="2条件执行">2.条件执行</h5>
+<pre><code class="language-R"># if-else结构
+if(is.character(grade)) grade &lt;- as.factor(grade)
+if(!is.factor(grade))grade &lt;- as.factor(grade) else print(&quot;Grade already&quot;)
+# ifelse结构
+ifelse(score &gt; 0.5, print(&quot;Passed&quot;), print(&quot;Failed&quot;))  # cond为TRUE则执行第一个语句；cond为FALSE则执行第二个语句
+outcome &lt;- ifelse(score &gt; 0.5, &quot;Passed&quot;, &quot;Failed&quot;)
+# swith结构
+feelings &lt;- c(&quot;sad&quot;, &quot;afraid&quot;)
+for(i in feelings)
+    print(
+    swith(i,
+         happy = &quot;I am glad you are happy&quot;, 
+         afraid = &quot;There is nothing to fear&quot;, 
+         sad = &quot;Cheer up&quot;,
+         angry = &quot;Calm down now&quot;
+         )
+    )
+</code></pre>
+<h6 id="13用户自编函数">1.3用户自编函数</h6>
+<pre><code class="language-R">mystats &lt;- function(x, parametric=TRUE, print=FALSE){
+    if(parametric){
+        center &lt;- mean(x); spread &lt;- sd(x)
+    }else{
+        center &lt;- median(x); spread &lt;- mad(x)
+    }
+    if(print &amp; parametric){
+        cat(&quot;Mean=&quot;, center, &quot;\n&quot;, &quot;SD=&quot;, spread, &quot;\n&quot;)
+    }else if(print &amp; !parametric){
+        cat(&quot;Median=&quot;, center, &quot;\n&quot;, &quot;MAD=&quot;, spread, &quot;\n&quot;)
+    }
+    result &lt;- list(center=center, spread=spread)
+    return(result)
+}
+# 先生成一些数据,服从正态分布，大小为500的随机样本
+set.seed(1234)
+x &lt;- rnorm(500)
+y &lt;- mystats(x)
+# 执行语句
+y &lt;- mystats(x, parametric=FALSE, print=TRUE)
+# 使用swith的用户自编函数
+mydate &lt;- function(type=&quot;long&quot;){
+    swith(type, 
+         long = format(Sys.time(), &quot;%A %B %d %Y&quot;), 
+         short = format(Sys.time(),&quot;%m-%d-%y&quot;), 
+         cat(type, &quot;is not a recognized type\n&quot;)
+         )  # 函数cat()仅会在输入的日期格式类型不匹配“long”或“short”时执行
+}
+</code></pre>
+<h5 id="14整合与重构">1.4整合与重构</h5>
+<pre><code class="language-R"># 转置（反转行和列）；使用函数t()可以对矩阵或数据框进行转置
+cars &lt;- mtcars[1:5, 1:4]
+cars
+t(cars)
+# 整合数据
+options(digits=3)
+attach(mtcars)
+aggdata &lt;- aggregate(mtcars, by=list(cy1,gear), FUN=mean, na.rm=TRUE)
+aggdata
+# reshape2包
+# 融合
+library(reshape2)
+md &lt;- melt(mydata, id=c(&quot;ID&quot;, &quot;Time&quot;))
+# 重铸
+newdata &lt;- dcast(md, formula, fun.aggregate)
+
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://donngyu.github.io/dongyu.github.io/tag/84GU50qut/" class="tag">
+                    R语言
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://donngyu.github.io/dongyu.github.io/post/chuang-jian-shu-ju-ji/">
+                  <h3 class="post-title">
+                    创建数据集
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>

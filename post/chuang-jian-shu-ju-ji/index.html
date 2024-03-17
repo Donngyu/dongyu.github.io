@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>创建数据集 | 东隅的博客小站</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://donngyu.github.io/dongyu.github.io//favicon.ico?v=1710685516062">
+<link rel="stylesheet" href="https://donngyu.github.io/dongyu.github.io//styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="数据结构：向量；矩阵；数组；数据框
+
+在R中，对象（object）是指可以赋值给变量的任何事物。数据框（data frame）是R中用于存储数据的一种结构；列表示变量，行表示观测。因子（factor）是名义型变量或有序型变量。
+
+1.向量
+..." />
+    <meta name="keywords" content="R语言" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://donngyu.github.io/dongyu.github.io/">
+        <img src="https://donngyu.github.io/dongyu.github.io//images/avatar.png?v=1710685516062" class="site-logo">
+        <h1 class="site-title">东隅的博客小站</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/post/dong-yu-de-bo-ke-xiao-zhan" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/archives" class="site-nav">
+            分组
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/tags" class="site-nav">
+            分类
+          </a>
+        
+      
+        
+          <a href="https://donngyu.github.io/dongyu.github.io/post/guan-yu-wo" class="site-nav">
+            关于我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      千里之行，始于足下
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://donngyu.github.io/dongyu.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">创建数据集</h2>
+            <div class="post-date">2024-03-17</div>
+            
+              <div class="feature-container" style="background-image: url('https://donngyu.github.io/dongyu.github.io//post-images/chuang-jian-shu-ju-ji.jpg')">
+              </div>
+            
+            <div class="post-content" v-pre>
+              <h6 id="数据结构向量矩阵数组数据框">数据结构：向量；矩阵；数组；数据框</h6>
+<blockquote>
+<p>在R中，对象（object）是指可以赋值给变量的任何事物。数据框（data frame）是R中用于存储数据的一种结构；<mark>列表示变量，行表示观测</mark>。<strong>因子</strong>（factor）是名义型变量或有序型变量。</p>
+</blockquote>
+<h5 id="1向量">1.向量</h5>
+<pre><code class="language-R">a &lt;- c(1,2,5,3,6,-2,4)
+b &lt;- c(&quot;one&quot;,&quot;two&quot;,&quot;three&quot;)
+c &lt;- c(TRUE,TRUE,TRUE,FALSE,TRUE，FALSE)
+#注意：单个向量中的数据必须拥有相同的类型或模式
+</code></pre>
+<p>元素索引：</p>
+<blockquote>
+<p>在方括号给定元素所处位置的数值，可以访问向量中的元素。例如：</p>
+</blockquote>
+<pre><code class="language-R">a &lt;- c(&quot;k&quot;,&quot;j&quot;,&quot;h&quot;,&quot;a&quot;,&quot;c&quot;,&quot;m&quot;)
+a[3]
+a[c(1,3,5)]
+a[2:6]#a &lt;- c(2:6)等价于a &lt;-c(2,3,4,5,6)
+</code></pre>
+<h5 id="2矩阵">2.矩阵</h5>
+<blockquote>
+<p><mark>矩阵是一个二维数组</mark>，通过==<em>matrix（）</em>==创建矩阵</p>
+</blockquote>
+<pre><code class="language-r">matrix(data = NA, nrow = 1, ncol = 1, byrow = FALSE,
+       dimnames = NULL)
+例如：
+y &lt;- matrix(1:20,nrow=5,ncol=4)
+cells &lt;-c(1,26,24,68)
+rnames &lt;- c(&quot;R1&quot;,&quot;R2&quot;)
+cnames &lt;- c(&quot;c1&quot;,&quot;c2&quot;)
+mymatrix &lt;-matrix(cells,nrow=2,ncol=2,byrow=TRUE,dimnames=list(rnames,cnames))
+mymatrix
+mymmatrix &lt;- matrix(cells,nrow=2,ncol=2,byrow=FASLE,dimnames=list(rnames,cnames))
+mymatrix
+#矩阵下标的使用,默认情况，矩阵按列填充
+x &lt;- matrix(1:10,nrow=2)
+</code></pre>
+<h5 id="3数组">3.数组</h5>
+<blockquote>
+<p>维度可以大于2，函数==<em>array()</em>==</p>
+</blockquote>
+<pre><code class="language-r">array(data = NA, dim = length(data), dimnames = NULL)
+as.array(x, ...)
+is.array(x)
+例如：#数组中是数据也只能拥有一种模式
+dim1 &lt;-c(&quot;A1&quot;,&quot;A2&quot;)
+dim2 &lt;-c(&quot;B1&quot;,&quot;B2&quot;,&quot;B3&quot;)
+dim3 &lt;-c(&quot;C1&quot;,&quot;C2&quot;,&quot;C3&quot;,&quot;C4&quot;)
+z &lt;- array(1:24,c(2,3,4),dimnames=list(dim1,dim2,dim3))
+z
+</code></pre>
+<h5 id="4数据框">4.数据框</h5>
+<blockquote>
+<p>数据框可以包含多种不同的数据类型</p>
+</blockquote>
+<pre><code class="language-r">data.frame(..., row.names = NULL, check.rows = FALSE,
+           check.names = TRUE, fix.empty.names = TRUE,
+           stringsAsFactors = FALSE)
+#创建一个数据框
+patientID &lt;-c(1,2,3,4)
+age &lt;-c(25,34,28,52)
+diabetes &lt;-c(&quot;Type1&quot;，&quot;Type2&quot;,&quot;Type1&quot;,&quot;Type1&quot;)
+status &lt;-c(&quot;Poor&quot;,&quot;Improved&quot;,&quot;Excellent&quot;,&quot;Poor&quot;)
+patientdata &lt;-data.frame(patientID,age,diabetes,status)
+patientdata
+#每一列数据模式必须唯一
+#选取数据框中的元素可以使用下标，也可以直接指定列名
+#例如：patientdata[1:2];patientdata[&quot;diabetes&quot;,&quot;status&quot;];patientdata$age
+#&quot;$&quot;可以用来选取某个特定变量
+</code></pre>
+<p>使用函数<mark>attach()<mark>和</mark>detach()</mark>;或者使用函数==with()==简化代码；例如：</p>
+<pre><code class="language-R">summary(mtcars$mpg)
+plot(mtcars$mpg,mtcars$disp)
+plot(mtcars$mpg,mtcars$wt)
+#上述代码也可以写成：
+attach(mtcars)
+	summary(mpg)
+	plot(mpg,disp)
+	plot(mpg,wt)
+detach(mtcars)#将数据框从搜索路径中移除
+#！！注意：当名称相同的对象不止一个时，这种方法就比较局限了。这时可以使用with()
+with(mtcars,{
+    print(summary(mpg))
+    plot(mpg,disp)
+    plot(mpg,wt)
+})#赋值仅仅在with()中生效，需要创建with()结构以外的对象，要使用特殊赋值符&lt;&lt;-替代标准赋值符&lt;-,它能将对象保存到全局环境中
+with(mtcars,{
+    nokeepstats &lt;- summary(mpg)
+    keepstats &lt;- summary(mpg)
+})
+nokeepstats#报错
+keepstats
+</code></pre>
+<h5 id="5因子">5.因子</h5>
+<p><strong>名义型变量</strong>和<strong>有序型变量</strong>都是R中的因子，函数*<mark>factor()</mark>*能以一个整数向量的形式存储类别值。</p>
+<pre><code class="language-R">factor(x = character(), levels, labels = levels,
+       exclude = NA, ordered = is.ordered(x), nmax = NA)
+
+ordered(x = character(), ...)
+
+is.factor(x)
+is.ordered(x)
+
+as.factor(x)
+as.ordered(x)
+
+addNA(x, ifany = FALSE)
+
+.valid.factor(object)
+</code></pre>
+<p>例如：</p>
+<pre><code class="language-R">diabetes &lt;- c(&quot;Type1&quot;,&quot;Type2&quot;,&quot;Type1&quot;,&quot;Type1&quot;)
+diabetes &lt;- factor(diabetes)#将此向量存储为（1,2,1,1）
+#要表示有序型变量，使用函数factor()指定参数orderd=TRUE
+status &lt;- c(&quot;Poor&quot;,&quot;Improved&quot;,&quot;Excellent&quot;,&quot;Poor&quot;)
+status &lt;- factor(status,orderd=TRUE)#默认按照字母排序顺序
+#可以通过指定levels选项来覆盖默认排序
+status &lt;- factor(status,orderd=TRUE
+                levels=c(&quot;Poor&quot;,&quot;Improved&quot;,&quot;Excellent&quot;))
+sex &lt;- factor(sex,levels=c(1,2),labels=c(&quot;Male&quot;,&quot;Females&quot;))
+#因子的使用：
+patientID &lt;- c(1,2,3,4)
+ages &lt;- c(25,34,28,52)
+diabetes &lt;- c(&quot;Type1&quot;,&quot;Type2&quot;,&quot;Type1&quot;,&quot;Type1&quot;)
+status &lt;- c(&quot;Poor&quot;,&quot;Improved&quot;,&quot;Excellent&quot;,&quot;Poor&quot;)
+diabetes &lt;- factor(diabetes)
+status &lt;- factor(status,order=TRUE)
+patientdata &lt;- data.frame(patientID,age,diabetes,status)
+str(patientdata)#显示对象的结构
+summary(patientdata)
+</code></pre>
+<h5 id="6列表">6.列表</h5>
+<p>列表允许整合若干（可能无关的）对象到单个对象名下，使用函数*<mark>list()</mark>*创建列表。</p>
+<pre><code class="language-R">例如：
+g &lt;- &quot;My First List&quot;
+h &lt;- c(25,26,18,39)
+j &lt;- matrix(1:10,nrow=5)
+k &lt;- c(&quot;one&quot;,&quot;two&quot;,&quot;three&quot;)
+mylist &lt;- list(title=g,ages=h,j,k)
+mylist
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://donngyu.github.io/dongyu.github.io/tag/84GU50qut/" class="tag">
+                    R语言
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://donngyu.github.io/dongyu.github.io/post/shu-ju-de-shu-ru/">
+                  <h3 class="post-title">
+                    数据的输入
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
